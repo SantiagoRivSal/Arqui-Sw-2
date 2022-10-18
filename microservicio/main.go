@@ -1,10 +1,9 @@
 package main
 
 import (
-	"microservicio/utils/db"
-	"microservicio/router"
 	"github.com/gin-gonic/gin"
-	"microservicio/utils/cache"
+	"microservicio/router"
+	"microservicio/utils/db"
 
 	"fmt"
 )
@@ -16,17 +15,14 @@ var (
 func main() {
 	gin_router = gin.Default()
 	router.MapUrls(gin_router)
-	cache.Init_cache()
-	err:=db.Init_db()
-defer db.Disconect_db()
+	err := db.Init_db()
+	defer db.Disconect_db()
 
-if err!=nil {
+	if err != nil {
 		fmt.Println("Cannot init db")
 		fmt.Println(err)
-		return;
+		return
 	}
 	fmt.Println("Starting server")
 	gin_router.Run(":8090")
 }
-
- 

@@ -13,14 +13,14 @@ type Address struct {
 
 type Property struct {
 	Id          primitive.ObjectID `bson:"_id"`
-	Tittle      string             `bson:"text"`
-	Description string             `bson:"text"`
+	Tittle      string             `bson:"tittle"`
+	Description string             `bson:"description"`
 	Address     Address            `bson:"inline"`
-	Size        int
-	Rooms       int
-	Bathrooms   int
-	Service     string `bson:"text"`
-	Price       int
+	Size        int                `bson:"size"`
+	Rooms       int                `bson:"rooms"`
+	Bathrooms   int                `bson:"bathrooms"`
+	Service     string             `bson:"service"`
+	Price       int                `bson:"price"`
 }
 
 /*

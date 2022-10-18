@@ -1,7 +1,7 @@
 package dtos
 
 type PropertyDto struct {
-	Id          int     `json:"id"`
+	Id          string  `json:"id"`
 	Tittle      string  `json:"tittle"`
 	Description string  `json:"description"`
 	Address     Address `json:"address"`
@@ -12,9 +12,9 @@ type PropertyDto struct {
 	Price       int     `json:"price"`
 }
 type Address struct {
-	Street  string
-	City    string
-	State   string
-	Country string
+	Street  string `json:"street"`
+	City    string `json:"city"`
+	State   string `json:"state"`
+	Country string `json:"country"`
 }
 type PropertiesDto []PropertyDto
