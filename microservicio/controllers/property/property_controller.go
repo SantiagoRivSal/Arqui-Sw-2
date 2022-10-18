@@ -34,6 +34,25 @@ func Get(c *gin.Context) {
 	c.JSON(http.StatusOK, propertyDto)
 }
 
+func InsertMany(c *gin.Context) {
+	var propertiesDto dtos.PropertiesDto
+	err := c.BindJSON(&propertiesDto)
+
+	if err != nil {
+		fmt.Println(err)
+		c.JSON(http.StatusBadRequest, err.Error())
+		return
+	}
+
+	propertiesDto, er := service.PropertyService.InsertMany(propertiesDto)
+
+	if er != nil {
+		c.JSON(er.Status(), er)
+		return
+	}
+	c.JSON(http.StatusCreated, propertiesDto)
+}
+
 func Insert(c *gin.Context) {
 	var propertyDto dtos.PropertyDto
 	err := c.BindJSON(&propertyDto)

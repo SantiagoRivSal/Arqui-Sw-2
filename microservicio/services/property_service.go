@@ -11,7 +11,7 @@ type propertyService struct{}
 
 type propertyServiceInterface interface {
 	GetProperty(id string) (dtos.PropertyDto, e.ApiError)
-
+	InsertMany(propertiesDto dtos.PropertiesDto) (dtos.PropertiesDto, e.ApiError)
 	InsertProperty(propertyDto dtos.PropertyDto) (dtos.PropertyDto, e.ApiError)
 }
 
@@ -80,4 +80,30 @@ func (s *propertyService) InsertProperty(propertyDto dtos.PropertyDto) (dtos.Pro
 	propertyDto.Id = property.Id.Hex()
 
 	return propertyDto, nil
+}
+
+func (s *propertyService) InsertMany(propertiesDto dtos.PropertiesDto) (dtos.PropertiesDto, e.ApiError) {
+	for _, propertyDto := range propertiesDto {
+		var property model.Property
+
+		property.Tittle = propertyDto.Tittle
+		property.Size = propertyDto.Size
+		property.Price = propertyDto.Price
+		property.Rooms = propertyDto.Rooms
+		property.Service = propertyDto.Service
+		property.Bathrooms = propertyDto.Bathrooms
+		property.Description = propertyDto.Description
+
+		property.Address.City = propertyDto.Address.City
+		property.Address.Country = propertyDto.Address.Country
+		property.Address.State = propertyDto.Address.State
+		property.Address.Street = propertyDto.Address.Street
+
+		property = propertyDao.Insert(property)
+
+		if property.Id.Hex() == "000000000000000000000000" {
+			return propertiesDto, e.NewBadRequestApiError("error in insert")
+		}
+	}
+	return propertiesDto, nil
 }

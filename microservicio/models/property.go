@@ -22,6 +22,7 @@ type Property struct {
 	Service     string             `bson:"service"`
 	Price       int                `bson:"price"`
 }
+type Properties []Property
 
 /*
 {
