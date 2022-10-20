@@ -1,28 +1,31 @@
 package property
 
 import (
+	"encoding/json"
 	"fmt"
-	"github.com/gin-gonic/gin"
 	"microservicio/dtos"
 	service "microservicio/services"
+	"microservicio/utils/cache"
 	"net/http"
+
+	"github.com/gin-gonic/gin"
 )
 
 func Get(c *gin.Context) {
 
 	id := c.Param("id")
-	/*
-		res := cache.Get(id)
 
-		if res != "" {
-			var propertyDtoCache dtos.PropertyDto
-			json.Unmarshal([]byte(res), &propertyDtoCache)
-			fmt.Println("from cache: " + id)
-			c.JSON(http.StatusOK, propertyDtoCache)
-			return
+	res := cache.Get(id)
 
-		}
-	*/
+	if res != "" {
+		var propertyDtoCache dtos.PropertyDto
+		json.Unmarshal([]byte(res), &propertyDtoCache)
+		fmt.Println("from cache: " + id)
+		c.JSON(http.StatusOK, propertyDtoCache)
+		return
+
+	}
+
 	propertyDto, er := service.PropertyService.GetProperty(id)
 
 	// Error del Insert
@@ -71,10 +74,11 @@ func Insert(c *gin.Context) {
 		c.JSON(er.Status(), er)
 		return
 	}
-	/*
-		propertyDtoStr, _ := json.Marshal(propertyDto)
-		cache.Set(propertyDto.Id, propertyDtoStr)
-		fmt.Println("save cache: " + propertyDto.Id)
-	*/
+
+	propertyDtoStr, _ := json.Marshal(propertyDto)
+
+	cache.Set(propertyDto.Id, propertyDtoStr)
+
+	fmt.Println("save cache: " + propertyDto.Id)
 	c.JSON(http.StatusCreated, propertyDto)
 }

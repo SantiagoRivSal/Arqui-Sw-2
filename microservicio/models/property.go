@@ -5,10 +5,10 @@ import (
 )
 
 type Address struct {
-	Street  string
-	City    string
-	State   string
-	Country string
+	Street  string `bson:"street"`
+	City    string `bson:"city"`
+	State   string `bson:"state"`
+	Country string `bson:"country"`
 }
 
 type Property struct {

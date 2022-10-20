@@ -3,6 +3,7 @@ package main
 import (
 	"github.com/gin-gonic/gin"
 	"microservicio/router"
+	"microservicio/utils/cache"
 	"microservicio/utils/db"
 
 	"fmt"
@@ -17,6 +18,7 @@ func main() {
 	router.MapUrls(gin_router)
 	err := db.Init_db()
 	defer db.Disconect_db()
+	cache.Init_cache()
 
 	if err != nil {
 		fmt.Println("Cannot init db")
