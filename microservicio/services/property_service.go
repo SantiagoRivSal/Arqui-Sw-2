@@ -83,6 +83,7 @@ func (s *propertyService) InsertProperty(propertyDto dtos.PropertyDto) (dtos.Pro
 }
 
 func (s *propertyService) InsertMany(propertiesDto dtos.PropertiesDto) (dtos.PropertiesDto, e.ApiError) {
+	var propertiesDtoArray dtos.PropertiesDto
 	for _, propertyDto := range propertiesDto {
 		var property model.Property
 
@@ -104,6 +105,20 @@ func (s *propertyService) InsertMany(propertiesDto dtos.PropertiesDto) (dtos.Pro
 		if property.Id.Hex() == "000000000000000000000000" {
 			return propertiesDto, e.NewBadRequestApiError("error in insert")
 		}
+
+		propertyDto.Tittle = property.Tittle
+		propertyDto.Size = property.Size
+		propertyDto.Bathrooms = property.Bathrooms
+		propertyDto.Service = property.Service
+		propertyDto.Address.City = property.Address.City
+		propertyDto.Address.State = property.Address.State
+		propertyDto.Address.Country = property.Address.Country
+		propertyDto.Address.Street = property.Address.Street
+		propertyDto.Price = property.Price
+		propertyDto.Rooms = property.Rooms
+		propertyDto.Id = property.Id.Hex()
+
+		propertiesDtoArray = append(propertiesDtoArray, propertyDto)
 	}
-	return propertiesDto, nil
+	return propertiesDtoArray, nil
 }
