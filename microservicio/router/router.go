@@ -9,6 +9,7 @@ import (
 func MapUrls(router *gin.Engine) {
 	// Products Mapping
 	router.GET("/properties/:id", propertyController.Get)
+	router.GET("/properties/all", propertyController.GetAll)
 	router.POST("/properties/load", propertyController.Insert)
 	router.POST("/properties/import", propertyController.InsertMany)
 
