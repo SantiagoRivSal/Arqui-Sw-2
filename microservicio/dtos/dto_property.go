@@ -10,6 +10,7 @@ type PropertyDto struct {
 	Bathrooms   int     `json:"bathrooms"`
 	Service     string  `json:"service"`
 	Price       int     `json:"price"`
+	Image       string  `json:"image"`
 }
 type Address struct {
 	Street  string `json:"street"`

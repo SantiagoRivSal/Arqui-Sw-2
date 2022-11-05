@@ -21,6 +21,7 @@ type Property struct {
 	Bathrooms   int                `bson:"bathrooms"`
 	Service     string             `bson:"service"`
 	Price       int                `bson:"price"`
+	Image       string             `bson:"image"`
 }
 type Properties []Property
 
