@@ -51,7 +51,7 @@ export const Main = () => {
                 properties.map(property =>(
                   <PropertyItems key={property.id}
                   id={property.id}
-                  title ={property.title}
+                  tittle ={property.tittle}
                   size={property.size}
                   bathrooms={property.bathrooms}
                   service={property.service}

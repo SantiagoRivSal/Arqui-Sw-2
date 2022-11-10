@@ -12,16 +12,16 @@
 }
 
 /*---Property---*/
-.title{
+.h1{
     font-size: 4rem;
     padding: 1rem 0 1rem 0;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     text-align: center;
   }
   h2{
     font-size: 2rem;
     padding: 1rem 0 1rem 0;
-    color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     text-align: center;
   }
   .Property{
