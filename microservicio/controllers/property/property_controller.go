@@ -7,6 +7,7 @@ import (
 	service "microservicio/services"
 	"microservicio/utils/cache"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -93,4 +94,17 @@ func Insert(c *gin.Context) {
 
 	fmt.Println("save cache: " + propertyDto.Id)
 	c.JSON(http.StatusCreated, propertyDto)
+}
+
+func GetRandom(c *gin.Context) {
+	cantidad, _ := strconv.Atoi(c.Param("cantidad"))
+	var propertyDto dtos.PropertyDto
+
+	propertyDto, err := service.PropertyService.GetRandom(cantidad)
+
+	if err != nil {
+		c.JSON(err.Status(), err)
+		return
+	}
+	c.JSON(http.StatusOK, propertyDto)
 }

@@ -21,6 +21,7 @@ type propertyServiceInterface interface {
 	GetProperties() (dtos.PropertiesDto, e.ApiError)
 	InsertMany(propertiesDto dtos.PropertiesDto) (dtos.PropertiesDto, e.ApiError)
 	InsertProperty(propertyDto dtos.PropertyDto) (dtos.PropertyDto, e.ApiError)
+	GetRandom(cantidad int) (dtos.PropertyDto, e.ApiError)
 }
 
 var (
@@ -233,4 +234,56 @@ func (s *propertyService) InsertMany(propertiesDto dtos.PropertiesDto) (dtos.Pro
 	}
 
 	return propertiesDtoArray, nil
+}
+func (s *propertyService) GetRandom(cantidad int) (dtos.PropertyDto, e.ApiError) {
+
+	/*var properties = propertyDao.GetRandom(cantidad)
+	var propertiesDtoArray dtos.PropertiesDto
+
+	var wg sync.WaitGroup
+	wg.Add(len(properties))
+
+	for _, property := range properties {
+		var propertyDto dtos.PropertyDto
+
+		if property.Id.Hex() == "000000000000000000000000" {
+			return propertiesDtoArray, e.NewBadRequestApiError("error in insert")
+		}
+
+		propertyDto.Tittle = property.Tittle
+		propertyDto.Size = property.Size
+		propertyDto.Description = property.Description
+		propertyDto.Bathrooms = property.Bathrooms
+		propertyDto.Service = property.Service
+		propertyDto.Address.City = property.Address.City
+		propertyDto.Address.State = property.Address.State
+		propertyDto.Address.Country = property.Address.Country
+		propertyDto.Address.Street = property.Address.Street
+		propertyDto.Price = property.Price
+		propertyDto.Rooms = property.Rooms
+		propertyDto.Image = property.Image
+		propertyDto.Id = property.Id.Hex()
+
+		propertiesDtoArray = append(propertiesDtoArray, propertyDto)
+	}
+	wg.Wait()
+	return propertiesDtoArray, nil
+
+
+	if len(properties) == 0 {
+		return propertiesDto[], e.NewBadRequestApiError("products not found")
+	}
+	for _, property := range properties {
+		var productDto dto.ProductDto
+		productDto.Name = product.Name
+		productDto.Price = product.Price
+		productDto.Id = product.Id
+		productDto.Description = product.Description
+		productDto.Stock = product.Stock
+		productDto.IdCategory = product.IdCategory
+		productDto.Picture = product.Picture
+
+		productsDto = append(productsDto, productDto)
+	}
+	return productsDto, nil*/
 }

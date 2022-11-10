@@ -3,11 +3,12 @@ package property
 import (
 	"context"
 	"fmt"
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"log"
 	model "microservicio/models"
 	"microservicio/utils/db"
+
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 func GetById(id string) model.Property {
@@ -42,6 +43,15 @@ func GetAll() model.Properties {
 	}
 
 	return properties
+}
+
+func GetRandom(cantidad int) model.Properties {
+	var properties model.Properties
+	db := db.MongoDb
+
+	/*db.order("RAND()").Limit(cantidad).Find(&properties)
+	return properties*/
+
 }
 
 func Insert(property model.Property) model.Property {
