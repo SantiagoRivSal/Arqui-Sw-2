@@ -71,6 +71,7 @@ func (s *propertyService) GetProperties() (dtos.PropertiesDto, e.ApiError) {
 		}(property.Image)
 		propertyDto.Tittle = property.Tittle
 		propertyDto.Size = property.Size
+		propertyDto.Description = property.Description
 		propertyDto.Bathrooms = property.Bathrooms
 		propertyDto.Service = property.Service
 		propertyDto.Address.City = property.Address.City
@@ -136,6 +137,7 @@ func (s *propertyService) GetProperty(id string) (dtos.PropertyDto, e.ApiError) 
 	}
 	propertyDto.Tittle = property.Tittle
 	propertyDto.Size = property.Size
+	propertyDto.Description = property.Description
 	propertyDto.Bathrooms = property.Bathrooms
 	propertyDto.Service = property.Service
 	propertyDto.Address.City = property.Address.City
