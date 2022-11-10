@@ -267,10 +267,9 @@ func (s *propertyService) GetRandom(cantidad int) (dtos.PropertyDto, e.ApiError)
 		propertiesDtoArray = append(propertiesDtoArray, propertyDto)
 	}
 	wg.Wait()
-	return propertiesDtoArray, nil
+	return propertiesDtoArray, nil*/
 
-
-	if len(properties) == 0 {
+	/*if len(properties) == 0 {
 		return propertiesDto[], e.NewBadRequestApiError("products not found")
 	}
 	for _, property := range properties {

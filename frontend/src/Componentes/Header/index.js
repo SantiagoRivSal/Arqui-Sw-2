@@ -1,5 +1,6 @@
 import React from 'react'
 import Libertador from "../../images/logo.jpeg";
+import PropertyItems from "../Main/"
 import './header.css';
 
 export const Header = () => {
