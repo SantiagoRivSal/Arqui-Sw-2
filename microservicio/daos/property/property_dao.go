@@ -45,14 +45,7 @@ func GetAll() model.Properties {
 	return properties
 }
 
-func GetRandom(cantidad int) model.Properties {
-	var properties model.Properties
-	db := db.MongoDb
-
-	/*db.order("RAND()").Limit(cantidad).Find(&properties)
-	return properties*/
-
-}
+//func GetRandom(cantidad int) model.Properties {}
 
 func Insert(property model.Property) model.Property {
 	db := db.MongoDb
@@ -67,4 +60,54 @@ func Insert(property model.Property) model.Property {
 	fmt.Println("id insertada: ", insertProperty.Id)
 	property.Id = insertProperty.Id
 	return property
+}
+
+func GetCity() model.Properties {
+	var properties model.Properties
+
+	db := db.MongoDb
+
+	cursor, err := db.Collection("properties").Find(context.TODO(), bson.D{{}})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err = cursor.All(context.TODO(), &properties); err != nil {
+		log.Fatal(err)
+	}
+
+	return properties
+}
+
+func GetCountry() model.Properties {
+	var properties model.Properties
+
+	db := db.MongoDb
+
+	cursor, err := db.Collection("properties").Find(context.TODO(), bson.D{{}})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err = cursor.All(context.TODO(), &properties); err != nil {
+		log.Fatal(err)
+	}
+
+	return properties
+}
+func GetService() model.Properties {
+	var properties model.Properties
+
+	db := db.MongoDb
+
+	cursor, err := db.Collection("properties").Find(context.TODO(), bson.D{{}})
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	if err = cursor.All(context.TODO(), &properties); err != nil {
+		log.Fatal(err)
+	}
+
+	return properties
 }

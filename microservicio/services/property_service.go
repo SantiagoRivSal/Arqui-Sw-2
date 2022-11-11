@@ -21,7 +21,10 @@ type propertyServiceInterface interface {
 	GetProperties() (dtos.PropertiesDto, e.ApiError)
 	InsertMany(propertiesDto dtos.PropertiesDto) (dtos.PropertiesDto, e.ApiError)
 	InsertProperty(propertyDto dtos.PropertyDto) (dtos.PropertyDto, e.ApiError)
-	GetRandom(cantidad int) (dtos.PropertyDto, e.ApiError)
+	//GetRandom(cantidad int) (dtos.PropertyDto, e.ApiError)
+	GetCities() (dtos.PropertiesDto, e.ApiError)
+	GetCountries() (dtos.PropertiesDto, e.ApiError)
+	GetServices() (dtos.PropertiesDto, e.ApiError)
 }
 
 var (
@@ -235,9 +238,11 @@ func (s *propertyService) InsertMany(propertiesDto dtos.PropertiesDto) (dtos.Pro
 
 	return propertiesDtoArray, nil
 }
-func (s *propertyService) GetRandom(cantidad int) (dtos.PropertyDto, e.ApiError) {
 
-	/*var properties = propertyDao.GetRandom(cantidad)
+//func (s *propertyService) GetRandom(cantidad int) (dtos.PropertyDto, e.ApiError) {}
+
+func (s *propertyService) GetCities() (dtos.PropertiesDto, e.ApiError) {
+	var properties = propertyDao.GetCity()
 	var propertiesDtoArray dtos.PropertiesDto
 
 	var wg sync.WaitGroup
@@ -249,40 +254,53 @@ func (s *propertyService) GetRandom(cantidad int) (dtos.PropertyDto, e.ApiError)
 		if property.Id.Hex() == "000000000000000000000000" {
 			return propertiesDtoArray, e.NewBadRequestApiError("error in insert")
 		}
-
-		propertyDto.Tittle = property.Tittle
-		propertyDto.Size = property.Size
-		propertyDto.Description = property.Description
-		propertyDto.Bathrooms = property.Bathrooms
-		propertyDto.Service = property.Service
 		propertyDto.Address.City = property.Address.City
-		propertyDto.Address.State = property.Address.State
-		propertyDto.Address.Country = property.Address.Country
-		propertyDto.Address.Street = property.Address.Street
-		propertyDto.Price = property.Price
-		propertyDto.Rooms = property.Rooms
-		propertyDto.Image = property.Image
 		propertyDto.Id = property.Id.Hex()
 
 		propertiesDtoArray = append(propertiesDtoArray, propertyDto)
 	}
 	wg.Wait()
-	return propertiesDtoArray, nil*/
+	return propertiesDtoArray, nil
+}
+func (s *propertyService) GetCountries() (dtos.PropertiesDto, e.ApiError) {
+	var properties = propertyDao.GetCountry()
+	var propertiesDtoArray dtos.PropertiesDto
 
-	/*if len(properties) == 0 {
-		return propertiesDto[], e.NewBadRequestApiError("products not found")
-	}
+	var wg sync.WaitGroup
+	wg.Add(len(properties))
+
 	for _, property := range properties {
-		var productDto dto.ProductDto
-		productDto.Name = product.Name
-		productDto.Price = product.Price
-		productDto.Id = product.Id
-		productDto.Description = product.Description
-		productDto.Stock = product.Stock
-		productDto.IdCategory = product.IdCategory
-		productDto.Picture = product.Picture
+		var propertyDto dtos.PropertyDto
 
-		productsDto = append(productsDto, productDto)
+		if property.Id.Hex() == "000000000000000000000000" {
+			return propertiesDtoArray, e.NewBadRequestApiError("error in insert")
+		}
+		propertyDto.Address.Country = property.Address.Country
+		propertyDto.Id = property.Id.Hex()
+
+		propertiesDtoArray = append(propertiesDtoArray, propertyDto)
 	}
-	return productsDto, nil*/
+	wg.Wait()
+	return propertiesDtoArray, nil
+}
+func (s *propertyService) GetServices() (dtos.PropertiesDto, e.ApiError) {
+	var properties = propertyDao.GetService()
+	var propertiesDtoArray dtos.PropertiesDto
+
+	var wg sync.WaitGroup
+	wg.Add(len(properties))
+
+	for _, property := range properties {
+		var propertyDto dtos.PropertyDto
+
+		if property.Id.Hex() == "000000000000000000000000" {
+			return propertiesDtoArray, e.NewBadRequestApiError("error in insert")
+		}
+		propertyDto.Service = property.Service
+		propertyDto.Id = property.Id.Hex()
+
+		propertiesDtoArray = append(propertiesDtoArray, propertyDto)
+	}
+	wg.Wait()
+	return propertiesDtoArray, nil
 }

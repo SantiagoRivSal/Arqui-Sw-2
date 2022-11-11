@@ -7,7 +7,6 @@ import (
 	service "microservicio/services"
 	"microservicio/utils/cache"
 	"net/http"
-	"strconv"
 
 	"github.com/gin-gonic/gin"
 )
@@ -96,15 +95,39 @@ func Insert(c *gin.Context) {
 	c.JSON(http.StatusCreated, propertyDto)
 }
 
-func GetRandom(c *gin.Context) {
-	cantidad, _ := strconv.Atoi(c.Param("cantidad"))
-	var propertyDto dtos.PropertyDto
+func GetCity(c *gin.Context) {
 
-	propertyDto, err := service.PropertyService.GetRandom(cantidad)
-
-	if err != nil {
-		c.JSON(err.Status(), err)
+	propertiesDto, er := service.PropertyService.GetCities()
+	//error del get
+	if er != nil {
+		c.JSON(er.Status(), er)
 		return
 	}
-	c.JSON(http.StatusOK, propertyDto)
+
+	c.JSON(http.StatusOK, propertiesDto)
 }
+func GetService(c *gin.Context) {
+
+	propertiesDto, er := service.PropertyService.GetServices()
+	//error del get
+	if er != nil {
+		c.JSON(er.Status(), er)
+		return
+	}
+
+	c.JSON(http.StatusOK, propertiesDto)
+}
+
+func GetCounty(c *gin.Context) {
+
+	propertiesDto, er := service.PropertyService.GetCountries()
+	//error del get
+	if er != nil {
+		c.JSON(er.Status(), er)
+		return
+	}
+
+	c.JSON(http.StatusOK, propertiesDto)
+}
+
+//func GetRandom(c *gin.Context) {}

@@ -6,9 +6,9 @@ import './main.css';
 
 
 export const Main = () => {
-  const [properties,setProperties] = useState([]);
+  //const [properties,setProperties] = useState([]);
 
-  const fetchApi = async()=>{
+  /*const fetchApi = async()=>{
     const response = await fetch('http://localhost:8090/properties/all')
     .then((response) => response.json());
     setProperties(response);
@@ -16,38 +16,7 @@ export const Main = () => {
     useEffect(()=>{
     fetchApi();
     },[])
-
-  /*useEffect(()=>{
-      fetch('http://localhost:8090/properties/all',
-      {method:"GET", mode: 'no-cors'})
-      .then((res) => res.json())
-      .then((properties)=>{
-        //console.log(properties)
-        setProperties(properties)
-        console.log(setProperties)
-      })
-      //setProperties(properties);
-      //console.log(properties)
-    },[])*/
-
-    /*const fetchApi = async()=>{
-      const response = await fetch('http://localhost:8090/productRandom/9')
-      .then((response) => response.json());
-      setProductos(response);
-      };
-      useEffect(()=>{
-      fetchApi();
-      },[])*/
-
-  return (
-    <main>
-      <div class="baner">
-        <p>
-          BIENVENIDOS A LIBERTADOR INMOBILIARIOS
-        </p>
-      </div>
-      <div className="Property">
-            {
+    {
                 properties.map(property =>(
                   <PropertyItems key={property.id}
                   id={property.id}
@@ -66,6 +35,16 @@ export const Main = () => {
                   /> 
                 ))
             }
+            */
+  return (
+    <main>
+      <div class="baner">
+        <p>
+          BIENVENIDOS A LIBERTADOR INMOBILIARIOS
+        </p>
+      </div>
+      <div className="Property">
+            <p>Las propiedades</p>
         </div>
     </main>
   )
