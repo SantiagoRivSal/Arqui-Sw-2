@@ -106,6 +106,7 @@ func GetCity(c *gin.Context) {
 
 	c.JSON(http.StatusOK, propertiesDto)
 }
+
 func GetService(c *gin.Context) {
 
 	propertiesDto, er := service.PropertyService.GetServices()

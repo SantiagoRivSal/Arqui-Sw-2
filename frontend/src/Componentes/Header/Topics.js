@@ -7,7 +7,6 @@ export const SearchCountry =(
     return(
         <div className="Country">
             <select><option value="">{country}</option></select>
-            
         </div>
     )
 }
