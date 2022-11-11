@@ -22,9 +22,7 @@ type propertyServiceInterface interface {
 	InsertMany(propertiesDto dtos.PropertiesDto) (dtos.PropertiesDto, e.ApiError)
 	InsertProperty(propertyDto dtos.PropertyDto) (dtos.PropertyDto, e.ApiError)
 	//GetRandom(cantidad int) (dtos.PropertyDto, e.ApiError)
-	GetCities() (dtos.PropertiesDto, e.ApiError)
-	GetCountries() (dtos.PropertiesDto, e.ApiError)
-	GetServices() (dtos.PropertiesDto, e.ApiError)
+	GetByParam(param string) ([]string, e.ApiError)
 }
 
 var (
@@ -241,27 +239,42 @@ func (s *propertyService) InsertMany(propertiesDto dtos.PropertiesDto) (dtos.Pro
 
 //func (s *propertyService) GetRandom(cantidad int) (dtos.PropertyDto, e.ApiError) {}
 
-func (s *propertyService) GetCities() (dtos.PropertiesDto, e.ApiError) {
-	var properties = propertyDao.GetCity()
-	var propertiesDtoArray dtos.PropertiesDto
+func Unique(strSlice []string) []string {
+	keys := make(map[string]bool)
+	list := []string{}
+	for _, entry := range strSlice {
+		if _, value := keys[entry]; !value {
+			keys[entry] = true
+			list = append(list, entry)
+		}
+	}
+	return list
+}
 
-	var wg sync.WaitGroup
-	wg.Add(len(properties))
+func (s *propertyService) GetByParam(param string) ([]string, e.ApiError) {
+	var properties = propertyDao.GetAll()
+
+	var array []string
 
 	for _, property := range properties {
-		var propertyDto dtos.PropertyDto
 
 		if property.Id.Hex() == "000000000000000000000000" {
-			return propertiesDtoArray, e.NewBadRequestApiError("error in insert")
+			return array, e.NewBadRequestApiError("error in get")
 		}
-		propertyDto.Address.City = property.Address.City
-		propertyDto.Id = property.Id.Hex()
 
-		propertiesDtoArray = append(propertiesDtoArray, propertyDto)
+		if (param == "city") {
+			array = append(array, property.Address.City)
+		} else if (param == "service") {
+			array = append(array, property.Service)
+		} else if (param == "country") {
+			array = append(array, property.Address.Country)
+		}
+
 	}
-	wg.Wait()
-	return propertiesDtoArray, nil
+	return Unique(array), nil
 }
+
+/*
 func (s *propertyService) GetCountries() (dtos.PropertiesDto, e.ApiError) {
 	var properties = propertyDao.GetCountry()
 	var propertiesDtoArray dtos.PropertiesDto
@@ -304,3 +317,4 @@ func (s *propertyService) GetServices() (dtos.PropertiesDto, e.ApiError) {
 	wg.Wait()
 	return propertiesDtoArray, nil
 }
+*/
