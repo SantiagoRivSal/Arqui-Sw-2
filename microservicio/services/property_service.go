@@ -262,59 +262,14 @@ func (s *propertyService) GetByParam(param string) ([]string, e.ApiError) {
 			return array, e.NewBadRequestApiError("error in get")
 		}
 
-		if (param == "city") {
+		if param == "city" {
 			array = append(array, property.Address.City)
-		} else if (param == "service") {
+		} else if param == "service" {
 			array = append(array, property.Service)
-		} else if (param == "country") {
+		} else if param == "country" {
 			array = append(array, property.Address.Country)
 		}
 
 	}
 	return Unique(array), nil
 }
-
-/*
-func (s *propertyService) GetCountries() (dtos.PropertiesDto, e.ApiError) {
-	var properties = propertyDao.GetCountry()
-	var propertiesDtoArray dtos.PropertiesDto
-
-	var wg sync.WaitGroup
-	wg.Add(len(properties))
-
-	for _, property := range properties {
-		var propertyDto dtos.PropertyDto
-
-		if property.Id.Hex() == "000000000000000000000000" {
-			return propertiesDtoArray, e.NewBadRequestApiError("error in insert")
-		}
-		propertyDto.Address.Country = property.Address.Country
-		propertyDto.Id = property.Id.Hex()
-
-		propertiesDtoArray = append(propertiesDtoArray, propertyDto)
-	}
-	wg.Wait()
-	return propertiesDtoArray, nil
-}
-func (s *propertyService) GetServices() (dtos.PropertiesDto, e.ApiError) {
-	var properties = propertyDao.GetService()
-	var propertiesDtoArray dtos.PropertiesDto
-
-	var wg sync.WaitGroup
-	wg.Add(len(properties))
-
-	for _, property := range properties {
-		var propertyDto dtos.PropertyDto
-
-		if property.Id.Hex() == "000000000000000000000000" {
-			return propertiesDtoArray, e.NewBadRequestApiError("error in insert")
-		}
-		propertyDto.Service = property.Service
-		propertyDto.Id = property.Id.Hex()
-
-		propertiesDtoArray = append(propertiesDtoArray, propertyDto)
-	}
-	wg.Wait()
-	return propertiesDtoArray, nil
-}
-*/

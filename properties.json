@@ -187,7 +187,7 @@
   "size": 77000,
   "rooms": 50,
   "bathrooms": 35,
-  "service": "alquiler",
+  "service": "Alquiler",
   "price": 500000,
   "image": "https://ezgpf7f5ty2.exactdn.com/wp-content/uploads/2008/10/interior-del-palacio.jpg?strip=all&lossy=1&resize=450%2C360&ssl=1"
 },{
@@ -203,7 +203,7 @@
   "size": 10000,
   "rooms": 25,
   "bathrooms": 10,
-  "service": "alquiler",
+  "service": "Alquiler",
   "price": 10000,
   "image": "https://www.estanciaelombu.com/wp-content/uploads/2020/10/estancia-el-ombu-slide-1.jpg"
 },{
@@ -219,7 +219,7 @@
   "size": 9500,
   "rooms": 20,
   "bathrooms": 8,
-  "service": "alquiler",
+  "service": "Alquiler",
   "price": 8500,
   "image": "https://www.clarin.com/img/2020/01/21/FqLwENjR_360x240__1.jpg"
 },{

@@ -1,14 +1,14 @@
 import React, { useContext, useEffect, useState} from "react";
 import Libertador from "../../images/logo.jpeg";
-import SearchCountry from "./Topics";
-import SearchCity from "./Topics";
-import SearchService from "./Topics";
+//import SearchCountry from "./Topics";
+//import SearchCity from "./Topics";
+//import SearchService from "./Topics";
 import './header.css';
 
 export const Header = () => {
-  const [SearchCountry,setSearchContry] = useState([]);
-  const [searchCity,setSearchCity] = useState([]);
-  const [searchService,setSearchService] = useState([]);
+  const [SearchCountries,setSearchContry] = useState([]);
+  const [SearchCities,setSearchCity] = useState([]);
+  const [SearchServices,setSearchService] = useState([]);
   const fetchApi1 = async()=>{
     const response = await fetch('http://localhost:8090/properties/country')
     .then((response) => response.json());
@@ -47,13 +47,10 @@ export const Header = () => {
         <div class="search-hijo">
           <div class="select">
             <select list="pais-PT" name="pais-PT" id="pais-PT">
-              <option value="" selected disabled>Pais</option>
-              {
-                SearchCountry.map(countries =>(
-                  <SearchCountry key={countries.id}
-                  id={countries.id}
-                  country={countries.address.country}
-                  /> 
+            <option value="" selected disabled>Pais</option>
+            {
+                SearchCountries.map(country =>(
+                  <option value="">{country}</option> 
                 ))
             }
             </select>
@@ -61,14 +58,10 @@ export const Header = () => {
           <div class="lista">
             <div class="select">
               <select list="ciudad-PT" name="ciudad-PT" id="ciudad-PT">
-                <option value="" selected disabled>Ciudad</option>
-                <option>La Rioja</option>
-                {
-                searchCity.map(cities =>(
-                  <SearchCountry key={cities.id}
-                  id={cities.id}
-                  city={cities.address.city}
-                  /> 
+              <option value="" selected disabled>Ciudad</option>
+            {
+                SearchCities.map(city =>(
+                  <option value="">{city}</option> 
                 ))
             }
               </select>
@@ -77,15 +70,10 @@ export const Header = () => {
           <div class="lista">
             <div class="select">
               <select list="ciudad-PT" name="ciudad-PT" id="ciudad-PT">
-                <option value="" selected disabled>Service</option>
-                <option>Alquiler</option>
-                <option>Venta</option>
-                {
-                searchService.map(services =>(
-                  <SearchCountry key={services.id}
-                  id={services.id}
-                  city={services.service}
-                  /> 
+              <option value="" selected disabled>Servicio</option>
+            {
+                SearchServices.map(service =>(
+                  <option value="">{service}</option> 
                 ))
             }
               </select>

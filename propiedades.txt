@@ -188,7 +188,7 @@
     "size":  77000,
     "rooms": 50,
     "bathrooms": 35,
-    "service": "alquiler",
+    "service": "Alquiler",
     "price": 500000,
     "image": "https://ezgpf7f5ty2.exactdn.com/wp-content/uploads/2008/10/interior-del-palacio.jpg?strip=all&lossy=1&resize=450%2C360&ssl=1"
 },
