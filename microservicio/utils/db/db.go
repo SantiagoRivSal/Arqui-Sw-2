@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
@@ -16,13 +17,13 @@ func Disconect_db() {
 
 func Init_db() error {
 
-	clientOpts := options.Client().ApplyURI("mongodb://root:root@localhost:27017/?authSource=admin&authMechanism=SCRAM-SHA-256")
+	clientOpts := options.Client().ApplyURI("mongodb://localhost:27017")
 	cli, err := mongo.Connect(context.TODO(), clientOpts)
 	client = cli
 	if err != nil {
 		return err
 	}
-	
+
 	MongoDb = client.Database("Properties")
 
 	return nil
