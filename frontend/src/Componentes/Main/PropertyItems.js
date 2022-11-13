@@ -16,7 +16,6 @@ export const PropertyItems =(
     description
 })=>{
 
-
     return(
         <div className="Property">
         <a href="#">
@@ -37,4 +36,5 @@ export const PropertyItems =(
         </div>
         </div>
     )
+    
 }

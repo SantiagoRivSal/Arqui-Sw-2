@@ -7,13 +7,9 @@ curl -o /tmp/properties.csv https://raw.githubusercontent.com/SantiagoRivSal/Arq
 
 bin/post -c Properties /tmp/properties.csv
 
+## Para Poner Elastic
+cd C:\Users\HP\Downloads\elasticsearch-8.4.2-windows-x86_64\elasticsearch-8.4.2\bin
+elasticsearch.bat
 
-
-"http://localhost:8983/solr/Properties/select?defType=lucene&fq=city%3A%22"
-+query1+
-"%22&fq=country%3A%22"
-+query2+
-"%22&fq=service%3A%22"
-+query3+
-"%22&indent=true&q.op=OR&q=*%3A*"
-
+cd C:\Users\HP\Downloads\kibana-8.4.2-windows-x86_64\kibana-8.4.2\bin
+kibana.bat
