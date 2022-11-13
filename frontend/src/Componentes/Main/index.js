@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState} from "react";
+import React, { Component, useContext, useEffect, useState} from "react";
 import { PropertyItems } from "../Main/PropertyItems";
 import swal from "sweetalert2";
 import './main.css';
@@ -40,13 +40,19 @@ export const Main = () => {
         fetchApi3();
         },[])
 
-      const fetchApiProperty = async()=>{
-          const response = await fetch("http://localhost:8983/solr/Properties/select?defType=lucene&fq=city%3A%22"+valueCity+"%22&fq=country%3A%22"+valueCountry+"%22&fq=service%3A%22"+valueService+"%22&indent=true&q.op=OR&q=*%3A*")
-          .then((response) => response.json());
-          setProperties(response)
-          console.log(response);
+      const fetchApiProperty = async() => {
+          const search = await fetch("http://localhost:8983/solr/Properties/select?defType=lucene&fq=city%3A%22"+valueCity+"%22&fq=country%3A%22"+valueCountry+"%22&fq=service%3A%22"+valueService+"%22&indent=true&q.op=OR&q=*%3A*")
+          .then((res) => res.json())
+          setProperties(search.response.docs)
+          console.log(search.response.docs);
           };
-  
+          /*fetchApiProperty() { this.setProperties(()=>{
+            fetch("http://localhost:8983/solr/Properties/select?defType=lucene&fq=city%3A%22"+valueCity+"%22&fq=country%3A%22"+valueCountry+"%22&fq=service%3A%22"+valueService+"%22&indent=true&q.op=OR&q=*%3A*")
+            .then((res)=>res.json())
+            .then(result=> this.setProperties({
+              properties: result.response.docs
+            }));
+          });}*/
       const handleChange=e=>{
       setValueCity(e.target.value);
        setValueCountry(e.target.value);
@@ -114,10 +120,10 @@ export const Main = () => {
                   size={property.size}
                   bathrooms={property.bathrooms}
                   service={property.service}
-                  city={property.address.city}
-                  state={property.address.state}
-                  country={property.address.country}
-                  street={property.address.street}
+                  city={property.city}
+                  state={property.state}
+                  country={property.country}
+                  street={property.street}
                   price={property.price}
                   rooms={property.rooms}
                   image={property.image}
