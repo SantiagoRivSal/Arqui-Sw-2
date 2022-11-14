@@ -13,7 +13,7 @@ import (
 
 func Get(c *gin.Context) {
 
-	id := c.Param("id")
+	id := c.Param("parameters")
 
 	res := cache.Get(id)
 
@@ -38,7 +38,7 @@ func Get(c *gin.Context) {
 }
 
 func GetByParam(c *gin.Context) {
-	param := c.Param("param")
+	param := c.Param("parameters")
 
 	propertiesDto, er := service.PropertyService.GetByParam(param)
 	//error del get
