@@ -1,8 +1,7 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////
-
 import { PropertyItems } from "../Main/PropertyItems";
 import React, { useEffect, useState } from "react";
 import Libertador from "../../images/logo.jpeg";
+import swal from "sweetalert2";
 import '../Main/main.css';
 
 
@@ -45,16 +44,20 @@ export const Main = () => {
   const fetchApiProperty = async () => {
     const search = await fetch("http://localhost:8983/solr/Properties/select?defType=lucene&fq=city%3A%22" + valueCity + "%22&fq=country%3A%22" + valueCountry + "%22&fq=service%3A%22" + valueService + "%22&indent=true&q.op=OR&q=*%3A*")
       .then((res) => res.json())
+      if(search.response.numFound==0){
+        swal.fire({
+          icon: 'error',
+          text: "NO HAY PROPIEDADES CON LOS FILTROS SELECCIONADOS",
+        })
+        .then((result) => {
+          if (result.isConfirmed) {
+              window.location.reload();
+          }})
+    }else{
     setProperties(search.response.docs)
     console.log(search.response.docs);
+      }
   };
-  /*fetchApiProperty() { this.setProperties(()=>{
-    fetch("http://localhost:8983/solr/Properties/select?defType=lucene&fq=city%3A%22"+valueCity+"%22&fq=country%3A%22"+valueCountry+"%22&fq=service%3A%22"+valueService+"%22&indent=true&q.op=OR&q=*%3A*")
-    .then((res)=>res.json())
-    .then(result=> this.setProperties({
-      properties: result.response.docs
-    }));
-  });}*/
   const handleChange = e => {
     setValueCity(e.target.value);
     setValueCountry(e.target.value);
@@ -123,7 +126,6 @@ export const Main = () => {
       <div class="Property-padre">
           {
             properties.map((property) => (
-              property.id==null?
               <PropertyItems key={property.id}
                 id={property.id}
                 tittle={property.tittle}
@@ -138,7 +140,7 @@ export const Main = () => {
                 rooms={property.rooms}
                 image={property.image}
                 description={property.description}
-              />:<h1>NO SE ENCONTRARON PROPIEDADES CON LOS FILTROS SELECCIONADOS</h1>
+              />
             ))
           }
         </div>
