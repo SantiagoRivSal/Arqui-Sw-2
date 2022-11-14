@@ -123,6 +123,7 @@ export const Main = () => {
       <div class="Property-padre">
           {
             properties.map((property) => (
+              property.id==null?
               <PropertyItems key={property.id}
                 id={property.id}
                 tittle={property.tittle}
@@ -137,7 +138,7 @@ export const Main = () => {
                 rooms={property.rooms}
                 image={property.image}
                 description={property.description}
-              />
+              />:<h1>NO SE ENCONTRARON PROPIEDADES CON LOS FILTROS SELECCIONADOS</h1>
             ))
           }
         </div>
