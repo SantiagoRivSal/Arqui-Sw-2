@@ -1,8 +1,9 @@
 package app
 
 import (
-	log "github.com/sirupsen/logrus"
 	solrController "wesolr/controllers/solr"
+
+	log "github.com/sirupsen/logrus"
 )
 
 func mapUrls() {
