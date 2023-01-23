@@ -3,8 +3,8 @@ package property
 import (
 	"context"
 	"fmt"
-	model "microservicio/models"
-	"microservicio/utils/db"
+	model "properties/models"
+	"properties/utils/db"
 
 	log "github.com/sirupsen/logrus"
 

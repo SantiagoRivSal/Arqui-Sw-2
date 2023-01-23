@@ -3,7 +3,7 @@ package queue
 import (
 	"context"
 	"fmt"
-	e "microservicio/utils/errors"
+	e "properties/utils/errors"
 	"time"
 
 	log "github.com/sirupsen/logrus"

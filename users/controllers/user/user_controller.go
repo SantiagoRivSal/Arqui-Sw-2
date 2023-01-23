@@ -1,10 +1,10 @@
 package userController
 
 import (
-	"mvc-go/dto"
-	service "mvc-go/services"
 	"net/http"
 	"strconv"
+	"users/dto"
+	service "users/services"
 
 	"github.com/gin-gonic/gin"
 	log "github.com/sirupsen/logrus"

@@ -1,8 +1,8 @@
 package db
 
 import (
-	userClient "mvc-go/clients/user"
-	"mvc-go/model"
+	userClient "users/clients/user"
+	"users/model"
 
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
@@ -23,7 +23,7 @@ func init() {
 	DBHost := "127.0.0.1"
 	// ------------------------
 
-	db, err = gorm.Open("mysql", DBUser+":"+DBPass+"@tcp("+DBHost+":3306)/"+DBName+"?charset=utf8&parseTime=True")
+	db, err = gorm.Open("mysql", DBUser+":"+DBPass+"@tcp("+DBHost+":3307)/"+DBName+"?charset=utf8&parseTime=True")
 
 	if err != nil {
 		log.Info("Connection Failed to Open")

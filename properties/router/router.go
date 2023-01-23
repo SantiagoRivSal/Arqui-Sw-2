@@ -2,7 +2,7 @@ package router
 
 import (
 	"fmt"
-	propertyController "microservicio/controllers/property"
+	propertyController "properties/controllers/property"
 
 	"github.com/gin-gonic/gin"
 )

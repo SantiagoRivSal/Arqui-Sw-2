@@ -3,10 +3,10 @@ package property
 import (
 	"encoding/json"
 	"fmt"
-	"microservicio/dtos"
-	service "microservicio/services"
-	"microservicio/utils/cache"
 	"net/http"
+	"properties/dtos"
+	service "properties/services"
+	"properties/utils/cache"
 
 	"github.com/gin-gonic/gin"
 )

@@ -1,7 +1,7 @@
 package app
 
 import (
-	userController "mvc-go/controllers/user"
+	userController "users/controllers/user"
 
 	log "github.com/sirupsen/logrus"
 )

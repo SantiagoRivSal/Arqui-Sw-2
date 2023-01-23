@@ -1,10 +1,10 @@
 package services
 
 import (
-	userCliente "mvc-go/clients/user"
-	"mvc-go/dto"
-	"mvc-go/model"
-	e "mvc-go/utils/errors"
+	userCliente "users/clients/user"
+	"users/dto"
+	"users/model"
+	e "users/utils/errors"
 
 	"crypto/md5"
 
@@ -42,6 +42,7 @@ func (s *userService) GetUserById(id int) (dto.UserDto, e.ApiError) {
 	userDto.Name = user.Name
 	userDto.LastName = user.LastName
 	userDto.UserName = user.UserName
+	userDto.Password = user.Password
 	userDto.Id = user.Id
 	return userDto, nil
 }
@@ -55,7 +56,8 @@ func (s *userService) GetUsers() (dto.UsersDto, e.ApiError) {
 		var userDto dto.UserDto
 		userDto.Name = user.Name
 		userDto.LastName = user.LastName
-		userDto.UserName = user.Name
+		userDto.UserName = user.UserName
+		userDto.Password = user.Password
 		userDto.Id = user.Id
 
 		usersDto = append(usersDto, userDto)

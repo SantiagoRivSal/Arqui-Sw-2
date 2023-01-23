@@ -1,10 +1,12 @@
 package main
 
 import (
+	"properties/router"
+	"properties/utils/cache"
+
+	"properties/utils/db"
+
 	"github.com/gin-gonic/gin"
-	"microservicio/router"
-	"microservicio/utils/cache"
-	"microservicio/utils/db"
 
 	"fmt"
 )
