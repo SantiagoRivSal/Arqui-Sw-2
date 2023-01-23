@@ -77,6 +77,21 @@ export const Main = () => {
         BUSCA TU HOGAR IDEAL
       </div>
 
+      <div className="containerInput" >
+        <input
+          class="form-control inputBuscar"
+          //value={busqueda}
+          placeholder="Buscador de Productos"
+          //onChange={handleChange}
+         
+        />
+        <input class="search-button"
+        value = "Buscar"
+         type = "button"
+        //onClick = {handleSubmit}
+        />
+      </div>
+
       <div class="search-padre">
         <div class="search-hijo">
           <div class="select">
