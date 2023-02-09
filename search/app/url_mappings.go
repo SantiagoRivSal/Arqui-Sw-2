@@ -14,7 +14,7 @@ func mapUrls() {
 
 	router.GET("/properties/:id", solrController.AddFromId)
 
-	router.DELETE("/items/:id", solrController.Delete)
+	router.DELETE("/properties/:id", solrController.Delete)
 
 	log.Info("Finishing mappings configurations")
 }

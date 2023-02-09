@@ -79,10 +79,10 @@ func (s *propertyService) GetProperties() (dtos.PropertiesDto, e.ApiError) {
 		propertyDto.Description = property.Description
 		propertyDto.Bathrooms = property.Bathrooms
 		propertyDto.Service = property.Service
-		propertyDto.Address.City = property.Address.City
-		propertyDto.Address.State = property.Address.State
-		propertyDto.Address.Country = property.Address.Country
-		propertyDto.Address.Street = property.Address.Street
+		propertyDto.City = property.City
+		propertyDto.State = property.State
+		propertyDto.Country = property.Country
+		propertyDto.Street = property.Street
 		propertyDto.Price = property.Price
 		propertyDto.Rooms = property.Rooms
 		propertyDto.Image = property.Image
@@ -108,33 +108,7 @@ func RandStringBytes() string {
 func (s *propertyService) GetProperty(id string) (dtos.PropertyDto, e.ApiError) {
 
 	var property model.Property = propertyClient.GetById(id)
-	var wg sync.WaitGroup
-	wg.Add(1)
-	go func(url string) {
-		defer wg.Done()
-		fileName := RandStringBytes() + ".jpg"
-		fmt.Println("Downloading", url, "to", fileName)
 
-		output, err := os.Create(fileName)
-		if err != nil {
-			log.Fatal("Error while creating", fileName, "- ", err)
-		}
-		defer output.Close()
-
-		res, err := http.Get(url)
-		if err != nil {
-			log.Fatal("http get error: ", err)
-		} else {
-			defer res.Body.Close()
-			_, err = io.Copy(output, res.Body)
-			if err != nil {
-				log.Fatal("Error while downloading", url, "-", err)
-
-			} else {
-				fmt.Println("Downloaded", fileName)
-			}
-		}
-	}(property.Image)
 	var propertyDto dtos.PropertyDto
 
 	if property.Id.Hex() == "000000000000000000000000" {
@@ -145,15 +119,16 @@ func (s *propertyService) GetProperty(id string) (dtos.PropertyDto, e.ApiError) 
 	propertyDto.Description = property.Description
 	propertyDto.Bathrooms = property.Bathrooms
 	propertyDto.Service = property.Service
-	propertyDto.Address.City = property.Address.City
-	propertyDto.Address.State = property.Address.State
-	propertyDto.Address.Country = property.Address.Country
-	propertyDto.Address.Street = property.Address.Street
+	propertyDto.City = property.City
+	propertyDto.State = property.State
+	propertyDto.Country = property.Country
+	propertyDto.Street = property.Street
 	propertyDto.Price = property.Price
 	propertyDto.Rooms = property.Rooms
 	propertyDto.Image = property.Image
+	propertyDto.UserId = property.UserId
 	propertyDto.Id = property.Id.Hex()
-	wg.Wait()
+
 	return propertyDto, nil
 }
 
@@ -169,10 +144,10 @@ func (s *propertyService) InsertProperty(propertyDto dtos.PropertyDto) (dtos.Pro
 	property.Bathrooms = propertyDto.Bathrooms
 	property.Description = propertyDto.Description
 	property.Image = propertyDto.Image
-	property.Address.City = propertyDto.Address.City
-	property.Address.Country = propertyDto.Address.Country
-	property.Address.State = propertyDto.Address.State
-	property.Address.Street = propertyDto.Address.Street
+	property.City = propertyDto.City
+	property.Country = propertyDto.Country
+	property.State = propertyDto.State
+	property.Street = propertyDto.Street
 
 	property = propertyClient.Insert(property)
 
@@ -184,13 +159,17 @@ func (s *propertyService) InsertProperty(propertyDto dtos.PropertyDto) (dtos.Pro
 	propertyDto.Bathrooms = property.Bathrooms
 	propertyDto.Image = property.Image
 	propertyDto.Service = property.Service
-	propertyDto.Address.City = property.Address.City
-	propertyDto.Address.State = property.Address.State
-	propertyDto.Address.Country = property.Address.Country
-	propertyDto.Address.Street = property.Address.Street
+	propertyDto.City = property.City
+	propertyDto.State = property.State
+	propertyDto.Country = property.Country
+	propertyDto.Street = property.Street
 	propertyDto.Price = property.Price
 	propertyDto.Rooms = property.Rooms
+	propertyDto.Image = property.Image
+	propertyDto.UserId = property.UserId
 	propertyDto.Id = property.Id.Hex()
+	err := queueClient.SendMessage(property.Id.Hex(), "create", property.Id.Hex())
+	log.Debug(err)
 
 	return propertyDto, nil
 }
@@ -221,10 +200,10 @@ func (s *propertyService) InsertMany(propertiesDto dtos.PropertiesDto) (dtos.Pro
 		property.Bathrooms = propertyDto.Bathrooms
 		property.Description = propertyDto.Description
 		property.UserId = propertyDto.UserId
-		property.Address.City = propertyDto.Address.City
-		property.Address.Country = propertyDto.Address.Country
-		property.Address.State = propertyDto.Address.State
-		property.Address.Street = propertyDto.Address.Street
+		property.City = propertyDto.City
+		property.Country = propertyDto.Country
+		property.State = propertyDto.State
+		property.Street = propertyDto.Street
 
 		property = propertyClient.Insert(property)
 		go DownloadImage(property.Image, property.Image)
@@ -238,10 +217,10 @@ func (s *propertyService) InsertMany(propertiesDto dtos.PropertiesDto) (dtos.Pro
 		propertyDto.Size = property.Size
 		propertyDto.Bathrooms = property.Bathrooms
 		propertyDto.Service = property.Service
-		propertyDto.Address.City = property.Address.City
-		propertyDto.Address.State = property.Address.State
-		propertyDto.Address.Country = property.Address.Country
-		propertyDto.Address.Street = property.Address.Street
+		propertyDto.City = property.City
+		propertyDto.State = property.State
+		propertyDto.Country = property.Country
+		propertyDto.Street = property.Street
 		propertyDto.Price = property.Price
 		propertyDto.Image = property.Image
 		propertyDto.Rooms = property.Rooms
@@ -282,11 +261,11 @@ func (s *propertyService) GetByParam(param string) ([]string, e.ApiError) {
 		}
 
 		if param == "city" {
-			array = append(array, property.Address.City)
+			array = append(array, property.City)
 		} else if param == "service" {
 			array = append(array, property.Service)
 		} else if param == "country" {
-			array = append(array, property.Address.Country)
+			array = append(array, property.Country)
 		}
 
 	}

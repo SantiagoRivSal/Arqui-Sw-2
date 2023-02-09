@@ -66,26 +66,24 @@ func (sc *SolrClient) GetQueryAllFields(query string) (dto.PropertiesDto, e.ApiE
 	return propertiesDto, nil
 }
 
-func (sc *SolrClient) Add(propertyDto dto.PropertyDto) e.ApiError {
-	var addpropertieDto dto.AddDto
-	addpropertieDto.Add = dto.DocDto{Doc: propertyDto}
-	data, err := json.Marshal(addpropertieDto)
+func (sc *SolrClient) Add(propertyDto dto.PropertyDto) error {
+	data, err := json.Marshal(propertyDto)
+	if err != nil {
+		return fmt.Errorf("Error marshalling propertyDto: %v", err)
+	}
 
 	reader := bytes.NewReader(data)
+
+	resp, err := sc.Client.Update(context.TODO(), "properties", solr.JSON, reader)
 	if err != nil {
-		return e.NewBadRequestApiError("Error getting json")
-	}
-	resp, err := sc.Client.Update(context.TODO(), sc.Collection, solr.JSON, reader)
-	logger.Debug(resp)
-	if err != nil {
-		return e.NewBadRequestApiError("Error in solr")
+		return fmt.Errorf("Error in solr update: %v", err)
 	}
 
-	er := sc.Client.Commit(context.TODO(), sc.Collection)
-	if er != nil {
-		logger.Debug("Error committing load")
-		return e.NewInternalServerApiError("Error committing to solr", er)
+	if err := sc.Client.Commit(context.TODO(), "properties"); err != nil {
+		return fmt.Errorf("Error committing to solr: %v", err)
 	}
+
+	logger.Debug(resp)
 	return nil
 }
 
