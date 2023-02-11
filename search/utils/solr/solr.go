@@ -12,7 +12,7 @@ type SolrClient struct {
 }
 
 func NewSolrClient(host string, port int, collection string) *SolrClient {
-	Client := solr.NewJSONClient("http://" + host + ":" + strconv.Itoa(port) + "/solr/properties")
+	Client := solr.NewJSONClient("http://" + host + ":" + strconv.Itoa(port))
 	return &SolrClient{
 		Client:     Client,
 		Collection: collection,

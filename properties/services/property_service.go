@@ -148,6 +148,7 @@ func (s *propertyService) InsertProperty(propertyDto dtos.PropertyDto) (dtos.Pro
 	property.Country = propertyDto.Country
 	property.State = propertyDto.State
 	property.Street = propertyDto.Street
+	property.UserId = propertyDto.UserId
 
 	property = propertyClient.Insert(property)
 

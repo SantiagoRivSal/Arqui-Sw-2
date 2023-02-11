@@ -8,9 +8,9 @@ import (
 
 func mapUrls() {
 
-	router.GET("/properties/:id", solrController.AddFromId)
+	router.GET("/properties/:id", solrController.Add)
 
-	router.DELETE("/properties/:id", solrController.Delete)
+	//router.DELETE("/properties/:id", solrController.Delete)
 
 	log.Info("Finishing mappings configurations")
 }

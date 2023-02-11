@@ -5,12 +5,9 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io"
-	"net/http"
 	"search/dto"
-	e "search/utils/errors"
 
-	logger "github.com/sirupsen/logrus"
+	//logger "github.com/sirupsen/logrus"
 	"github.com/stevenferrer/solr-go"
 )
 
@@ -19,74 +16,24 @@ type SolrClient struct {
 	Collection string
 }
 
-func (sc *SolrClient) GetQuery(query string, field string) (dto.PropertiesDto, e.ApiError) {
-	var response dto.SolrResponseDto
-	var propertiesDto dto.PropertiesDto
-	q, err := http.Get(fmt.Sprintf("http://%s:%d/solr/properties/select?q=%s%s%s", "solr", 8983, field, "%3A", query))
-
-	if err != nil {
-		return propertiesDto, e.NewBadRequestApiError("error getting from solr")
-	}
-
-	defer q.Body.Close()
-	err = json.NewDecoder(q.Body).Decode(&response)
-	if err != nil {
-		return propertiesDto, e.NewBadRequestApiError("error in unmarshal")
-	}
-	propertiesDto = response.Response.Docs
-	return propertiesDto, nil
-}
-
-func (sc *SolrClient) GetQueryAllFields(query string) (dto.PropertiesDto, e.ApiError) {
-	var response dto.SolrResponseDto
-	var propertiesDto dto.PropertiesDto
-
-	q, err := http.Get(
-		fmt.Sprintf("http://%s:%d/solr/properties/select?q=city%s%s%scountry%s%s%sservice%s%s%s",
-			"solr", 8983,
-			"%3A", query, "%0A",
-			"%3A", query, "%0A",
-			"%3A", query, "%0A",
-		))
-	if err != nil {
-		return propertiesDto, e.NewBadRequestApiError("error getting from solr")
-	}
-
-	var body []byte
-	body, err = io.ReadAll(q.Body)
-	if err != nil {
-		return propertiesDto, e.NewBadRequestApiError("error reading body")
-	}
-	err = json.Unmarshal(body, &response)
-	if err != nil {
-		return propertiesDto, e.NewBadRequestApiError("error in unmarshal")
-	}
-
-	propertiesDto = response.Response.Docs
-	return propertiesDto, nil
-}
-
-func (sc *SolrClient) Add(propertyDto dto.PropertyDto) error {
+func (s *SolrClient) AddClient(propertyDto dto.PropertyDto) error {
 	data, err := json.Marshal(propertyDto)
 	if err != nil {
-		return fmt.Errorf("Error marshalling propertyDto: %v", err)
+		return fmt.Errorf("error marshalling propertyDto: %v", err)
 	}
 
 	reader := bytes.NewReader(data)
-
-	resp, err := sc.Client.Update(context.TODO(), "properties", solr.JSON, reader)
-	if err != nil {
-		return fmt.Errorf("Error in solr update: %v", err)
+	if _, err := s.Client.Update(context.TODO(), "properties", solr.JSON, reader); err != nil {
+		return fmt.Errorf("error in solr update: %v", err)
 	}
 
-	if err := sc.Client.Commit(context.TODO(), "properties"); err != nil {
-		return fmt.Errorf("Error committing to solr: %v", err)
+	if err := s.Client.Commit(context.TODO(), "properties"); err != nil {
+		return fmt.Errorf("error committing to solr: %v", err)
 	}
-
-	logger.Debug(resp)
 	return nil
 }
 
+/*
 func (sc *SolrClient) Delete(id string) e.ApiError {
 	var deleteDto dto.DeleteDto
 	deleteDto.Delete = dto.DeleteDoc{Query: fmt.Sprintf("id:%s", id)}
@@ -108,3 +55,4 @@ func (sc *SolrClient) Delete(id string) e.ApiError {
 	}
 	return nil
 }
+*/

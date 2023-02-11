@@ -16,17 +16,18 @@ var (
 	)
 )
 
-func AddFromId(c *gin.Context) {
+func Add(c *gin.Context) {
 	id := c.Param("id")
-	err := Solr.AddFromId(id)
+	err := Solr.Add(id)
 	if err != nil {
-		c.JSON(http.StatusBadRequest, err)
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusCreated, err)
+	c.JSON(http.StatusCreated, gin.H{})
 }
 
+/*
 func Delete(c *gin.Context) {
 	id := c.Param("id")
 	err := Solr.Delete(id)
@@ -36,3 +37,4 @@ func Delete(c *gin.Context) {
 	}
 	c.JSON(http.StatusCreated, err)
 }
+*/

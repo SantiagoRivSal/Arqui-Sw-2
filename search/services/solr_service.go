@@ -9,7 +9,7 @@ import (
 	e "search/utils/errors"
 	"strconv"
 
-	log "github.com/sirupsen/logrus"
+	logger "github.com/sirupsen/logrus"
 )
 
 type SolrService struct {
@@ -24,43 +24,43 @@ func NewSolrServiceImpl(
 	}
 }
 
-func (s *SolrService) AddFromId(id string) e.ApiError {
+func (s *SolrService) Add(id string) e.ApiError {
 	var propertyDto dto.PropertyDto
 	resp, err := http.Get("http://localhost:8090/properties/" + id + "/id")
 	if err != nil {
-		log.Debugf("error getting property %s", id)
+		logger.Debugf("error getting property %s: %v", id, err)
 		return e.NewBadRequestApiError("error getting property " + id)
 	}
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		log.Debugf("bad status code %d", resp.StatusCode)
+		logger.Debugf("bad status code %d", resp.StatusCode)
 		return e.NewBadRequestApiError("bad status code " + strconv.Itoa(resp.StatusCode))
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
-		log.Debugf("error reading response body")
+		logger.Debugf("error reading response body: %v", err)
 		return e.NewBadRequestApiError("error reading response body")
 	}
 
 	err = json.Unmarshal(body, &propertyDto)
-	log.Debug("propiedad: ", propertyDto.Tittle)
 
 	if err != nil {
-		log.Debugf("error in unmarshal of property %s", id)
+		logger.Debugf("error in unmarshal of property %s: %v", id, err)
 		return e.NewBadRequestApiError("error in unmarshal of property")
 	}
 
-	er := s.solr.Add(propertyDto)
-	if er != nil {
-		log.Debugf("error adding to solr")
-		return e.NewInternalServerApiError("Adding to Solr error", er)
+	err = s.solr.AddClient(propertyDto)
+	if err != nil {
+		logger.Debugf("error adding to solr: %v", err)
+		return e.NewInternalServerApiError("Adding to Solr error", err)
 	}
 	return nil
 }
 
+/*
 func (s *SolrService) Delete(id string) e.ApiError {
 	err := s.solr.Delete(id)
 	if err != nil {
@@ -68,3 +68,4 @@ func (s *SolrService) Delete(id string) e.ApiError {
 	}
 	return nil
 }
+*/
