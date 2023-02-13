@@ -12,7 +12,7 @@ import (
 
 var (
 	Solr = services.NewSolrServiceImpl(
-		(*client.SolrClient)(con.NewSolrClient("localhost", 8983, "properties")),
+		(*client.SolrClient)(con.NewSolrClient("localhost", 8983, "property")),
 	)
 )
 

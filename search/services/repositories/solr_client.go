@@ -4,11 +4,12 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
-	"search/dto"
 
-	//logger "github.com/sirupsen/logrus"
+	logger "github.com/sirupsen/logrus"
 	"github.com/stevenferrer/solr-go"
+
+	"search/dto"
+	e "search/utils/errors"
 )
 
 type SolrClient struct {
@@ -16,19 +17,25 @@ type SolrClient struct {
 	Collection string
 }
 
-func (s *SolrClient) AddClient(propertyDto dto.PropertyDto) error {
-	data, err := json.Marshal(propertyDto)
-	if err != nil {
-		return fmt.Errorf("error marshalling propertyDto: %v", err)
-	}
+func (sc *SolrClient) AddClient(PropertyDto dto.PropertyDto) e.ApiError {
+	var addPropertyDto dto.AddDto
+	addPropertyDto.Add = dto.DocDto{Doc: PropertyDto}
+	data, err := json.Marshal(addPropertyDto)
 
 	reader := bytes.NewReader(data)
-	if _, err := s.Client.Update(context.TODO(), "properties", solr.JSON, reader); err != nil {
-		return fmt.Errorf("error in solr update: %v", err)
+	if err != nil {
+		return e.NewBadRequestApiError("Error getting json")
+	}
+	resp, err := sc.Client.Update(context.TODO(), sc.Collection, solr.JSON, reader)
+	logger.Debug(resp)
+	if err != nil {
+		return e.NewBadRequestApiError("Error in solr")
 	}
 
-	if err := s.Client.Commit(context.TODO(), "properties"); err != nil {
-		return fmt.Errorf("error committing to solr: %v", err)
+	er := sc.Client.Commit(context.TODO(), sc.Collection)
+	if er != nil {
+		logger.Debug("Error committing load")
+		return e.NewInternalServerApiError("Error committing to solr", er)
 	}
 	return nil
 }
