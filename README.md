@@ -1,10 +1,10 @@
-# Arqui-Sw-2
-## Para Poner las cosas en el Solr
+#### Para Poner las cosas en el Solr
 docker run -d -p --name some-solr 8983:8983 solr solr-precreate property
 
 
-## Api Properties
- # POST InsertProperty
+# Api Properties
+
+ ### POST InsertProperty
 
 {
     "tittle": "Departamento Grande en Nueva",
@@ -22,7 +22,7 @@ docker run -d -p --name some-solr 8983:8983 solr solr-precreate property
     "userid":1
 }
 
-# POST InsertManyProperties
+### POST InsertManyProperties
 [
 {
     "tittle": "CASA BONITA",
@@ -39,7 +39,7 @@ docker run -d -p --name some-solr 8983:8983 solr solr-precreate property
 },
 ]
 
-# GET Property
+### GET Property
 Se usa el ID
 localhost:8090/properties/63dbaaf59261396ac24f9c7f
 
