@@ -261,13 +261,11 @@ const Cookie = new Cookies();
           </div>
         </div>
       </div>
-
-
-      
+        
       <div class="Property-padre">
-          {
-            properties.map((property) => (
-              
+            {properties
+        .filter((property) => id_user != property.userid)
+        .map((property) => (
                   <PropertyItems key={property.id}
                     id={property.id}
                     tittle={property.tittle}
@@ -284,9 +282,11 @@ const Cookie = new Cookies();
                     description={property.description}
                     iduser={property.userid}
                   />
-              
             ))
-          }
+        }
+        {properties.length == 0 || (properties.length > 0 && properties.every((property) => id_user == property.userid)) ? (
+      <p>Solo hay propiedades a tu nombre</p>
+    ) : null}
         </div>
     </header>
   )
