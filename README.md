@@ -5,7 +5,7 @@ docker run -d -p --name some-solr 8983:8983 solr solr-precreate property
 # Api Properties
 
  ### POST InsertProperty
-
+***
 {
     "tittle": "Departamento Grande en Nueva",
     "description": "Dpto comodo, ideal para estudiantes o personas jovenes",
@@ -21,8 +21,9 @@ docker run -d -p --name some-solr 8983:8983 solr solr-precreate property
     "image": "https://imgar.zonapropcdn.com/avisos/1/00/49/04/77/69/720x532/1793449465.jpg",
     "userid":1
 }
-
+***
 ### POST InsertManyProperties
+***
 [
 {
     "tittle": "CASA BONITA",
@@ -38,13 +39,14 @@ docker run -d -p --name some-solr 8983:8983 solr solr-precreate property
   ....
 },
 ]
-
+***
 ### GET Property
 Se usa el ID
 localhost:8090/properties/63dbaaf59261396ac24f9c7f
-
+***
 {
     "id": "63dbaaf59261396ac24f9c7f",
     "tittle": "CASA BONITA",
     ....
 }
+***
