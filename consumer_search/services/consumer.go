@@ -29,7 +29,6 @@ func (s *ConsumerService) TopicConsumer(topic string) {
 		cli := &http.Client{}
 		strs := strings.Split(id, ".")
 		if len(strs) < 2 {
-			log.Debug("PRIMER PARTE DEL IF")
 			resp, err = http.Get(fmt.Sprintf("http://localhost:8000/properties/" + id))
 		} else {
 			if strs[1] == "delete" {
