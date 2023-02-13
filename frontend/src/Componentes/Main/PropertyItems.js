@@ -13,7 +13,8 @@ export const PropertyItems = (
         price,
         rooms,
         image,
-        description
+        description,
+        iduser
     }) => {
 
     return (
@@ -33,6 +34,7 @@ export const PropertyItems = (
                     <p class="Datos">{service}</p>
                     <p class="Datos-2">Direccion: {street},{city},{state}</p>
                     <p class="Datos-2">{country}</p>
+                    <p class="Datos-2">Usuario: {iduser}</p>
                 </div>
 
             </div>

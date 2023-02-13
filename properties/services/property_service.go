@@ -86,6 +86,7 @@ func (s *propertyService) GetProperties() (dtos.PropertiesDto, e.ApiError) {
 		propertyDto.Price = property.Price
 		propertyDto.Rooms = property.Rooms
 		propertyDto.Image = property.Image
+		propertyDto.UserId = property.UserId
 		propertyDto.Id = property.Id.Hex()
 
 		propertiesDtoArray = append(propertiesDtoArray, propertyDto)
@@ -147,6 +148,7 @@ func (s *propertyService) InsertProperty(propertyDto dtos.PropertyDto) (dtos.Pro
 	property.City = propertyDto.City
 	property.Country = propertyDto.Country
 	property.State = propertyDto.State
+	propertyDto.UserId = property.UserId
 	property.Street = propertyDto.Street
 	property.UserId = propertyDto.UserId
 
