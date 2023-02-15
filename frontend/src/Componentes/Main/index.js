@@ -186,8 +186,6 @@ const Cookie = new Cookies();
     <header class="header">
       <div class="logo-div">
         <img class="logo" src={Libertador} />
-      </div>
-      <div>
       {id_user!="undefined"?
                 <button className="btn" onClick={()=>LogOut()}>
                 Log Out
@@ -195,6 +193,7 @@ const Cookie = new Cookies();
                <Link to="/" className="botones_menu">
                 </Link> 
              }
+    
       </div>
       <div class="buscar">
         BUSCA TU HOGAR IDEAL
