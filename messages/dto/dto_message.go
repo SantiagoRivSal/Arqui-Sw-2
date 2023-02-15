@@ -1,11 +1,15 @@
 package dto
 
+import (
+	"time"
+)
+
 type MessageDto struct {
-	Receiver string `json:"receiver"`
-	Sender   string `json:"sender"`
-	Message  string `json:"message"`
-	Date     string `json:"date"`
-	Id       int    `json:"id"`
+	Receiver int       `json:"receiver"`
+	Sender   int       `json:"sender"`
+	Message  string    `json:"message"`
+	Date     time.Time `json:"date"`
+	Id       int       `json:"id"`
 }
 
 type MessagesDto []MessageDto

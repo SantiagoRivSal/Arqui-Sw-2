@@ -9,8 +9,8 @@ import (
 
 var Db *gorm.DB
 
-func GetMessages() model.messages {
-	var messages model.messages
+func GetMessages() model.Messages {
+	var messages model.Messages
 	Db.Find(&messages)
 
 	log.Debug("Messages: ", messages)
@@ -28,11 +28,11 @@ func InsertMessage(message model.Message) model.Message {
 	log.Debug("Message Created: ", message.Id)
 	return message
 }
-func GetUserByReceiver(receiver string) model.Message {
-	var message model.Message
+func GetUserByReceiver(receiver int) model.Messages {
+	var messages model.Messages
 
-	Db.Where("receiver = ?", receiver).First(&message)
-	log.Debug("Receiver: ", message.receiver)
-
-	return message
+	Db.Where("receiver = ?", receiver).First(&messages)
+	log.Debug("Receiver: ", receiver)
+	log.Debug("Message: ", messages)
+	return messages
 }

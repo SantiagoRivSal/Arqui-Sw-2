@@ -13,9 +13,9 @@ import (
 type messageService struct{}
 
 type messageServiceInterface interface {
-	GetMessageByReceiver(token string) (dto.MessageDto, e.ApiError)
+	GetMessageByReceiver(token string) (dto.MessagesDto, e.ApiError)
 	GetMessages() (dto.MessagesDto, e.ApiError)
-	InserMessage(messageDto dto.MessageDto) (dto.MessageDto, e.ApiError)
+	InsertMessage(messageDto dto.MessageDto) (dto.MessageDto, e.ApiError)
 }
 
 var (
@@ -28,8 +28,8 @@ func init() {
 
 func (s *messageService) GetMessages() (dto.MessagesDto, e.ApiError) {
 
-	var messages model.Message = messageCliente.GetMessages()
-	var messagesDto dto.MessageDto
+	var messages model.Messages = messageCliente.GetMessages()
+	var messagesDto dto.MessagesDto
 
 	for _, message := range messages {
 		var messageDto dto.MessageDto
@@ -45,7 +45,7 @@ func (s *messageService) GetMessages() (dto.MessagesDto, e.ApiError) {
 	return messagesDto, nil
 }
 
-func (s *messageService) InserMessage(messageDto dto.MessageDto) (dto.MessageDto, e.ApiError) {
+func (s *messageService) InsertMessage(messageDto dto.MessageDto) (dto.MessageDto, e.ApiError) {
 
 	var message model.Message
 
@@ -53,16 +53,16 @@ func (s *messageService) InserMessage(messageDto dto.MessageDto) (dto.MessageDto
 	message.Receiver = messageDto.Receiver
 	message.Sender = messageDto.Sender
 	message.Date = time.Now()
-	message = messageCliente.InserMessage(message)
+	message = messageCliente.InsertMessage(message)
 
 	messageDto.Id = message.Id
 
 	return messageDto, nil
 }
 
-func (s *messageService) GetMessageByReceiver(token string) (dto.MessageDto, e.ApiError) {
+func (s *messageService) GetMessageByReceiver(token string) (dto.MessagesDto, e.ApiError) {
 
-	var Receiver float64
+	var IdReceiver float64
 	tkn, err := jwt.Parse(token, func(t *jwt.Token) (interface{}, error) { return jwtKey, nil })
 
 	if err != nil {
@@ -78,14 +78,14 @@ func (s *messageService) GetMessageByReceiver(token string) (dto.MessageDto, e.A
 	}
 	if claims, ok := tkn.Claims.(jwt.MapClaims); ok && tkn.Valid {
 
-		Receiver = (claims["reciver"].(float64))
+		IdReceiver = (claims["id_receiver"].(float64))
 
 	} else {
 		return nil, e.NewUnauthorizedApiError("Unauthorized")
 	}
-	var ReceiverX int = int(Receiver)
-	var messages model.Messages = messageCliente.GetMessageByReceiver(ReceiverX)
-	var messagesDto dto.MessageDto
+	var IdReceiverX int = int(IdReceiver)
+	var messages model.Messages = messageCliente.GetMessageByReceiver(IdReceiverX)
+	var messagesDto dto.MessagesDto
 
 	if len(messages) == 0 {
 		return messagesDto, e.NewBadRequestApiError("message not found")
