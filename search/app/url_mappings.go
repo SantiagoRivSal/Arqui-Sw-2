@@ -7,7 +7,7 @@ import (
 )
 
 func mapUrls() {
-
+	router.GET("/search/:solrQuery", solrController.GetQuery)
 	router.GET("/properties/:id", solrController.Add)
 
 	//router.DELETE("/properties/:id", solrController.Delete)

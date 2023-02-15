@@ -8,6 +8,7 @@ import (
 	client "search/services/repositories"
 	e "search/utils/errors"
 	"strconv"
+	"strings"
 
 	logger "github.com/sirupsen/logrus"
 )
@@ -58,6 +59,17 @@ func (s *SolrService) Add(id string) e.ApiError {
 		return e.NewInternalServerApiError("Adding to Solr error", err)
 	}
 	return nil
+}
+
+func (s *SolrService) GetQuery(query string) (dto.PropertiesDto, e.ApiError) {
+	var propertiesDto dto.PropertiesDto
+	queryParams := strings.Split(query, "_")
+	field, query := queryParams[0], queryParams[1]
+	propertiesDto, err := s.solr.GetQuery(query, field)
+	if err != nil {
+		return propertiesDto, e.NewBadRequestApiError("Solr failed")
+	}
+	return propertiesDto, nil
 }
 
 /*

@@ -2,12 +2,14 @@ package solrController
 
 import (
 	"net/http"
-
-	"github.com/gin-gonic/gin"
-
+	"search/dto"
 	"search/services"
 	client "search/services/repositories"
 	con "search/utils/solr"
+
+	log "github.com/sirupsen/logrus"
+
+	"github.com/gin-gonic/gin"
 )
 
 var (
@@ -15,6 +17,21 @@ var (
 		(*client.SolrClient)(con.NewSolrClient("localhost", 8983, "property")),
 	)
 )
+
+func GetQuery(c *gin.Context) {
+	var propertiesDto dto.PropertiesDto
+	query := c.Param("solrQuery")
+
+	propertiesDto, err := Solr.GetQuery(query)
+	if err != nil {
+		log.Debug(propertiesDto)
+		c.JSON(http.StatusBadRequest, propertiesDto)
+		return
+	}
+
+	c.JSON(http.StatusOK, propertiesDto)
+
+}
 
 func Add(c *gin.Context) {
 	id := c.Param("id")
