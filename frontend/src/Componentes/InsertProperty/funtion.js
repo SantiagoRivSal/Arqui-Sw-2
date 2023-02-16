@@ -54,18 +54,30 @@ export const InsertProperty = () => {
         const response = await fetch('http://localhost:8090/properties/load', requestOptions);
         if (response.ok) {
           const data = await response.json();
-          alert("Propiedad agregada con éxito");
+          swal.fire({
+            icon: 'success',
+            text: "Propiedad Agregada",
+        })
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
           // Aquí podrías hacer algo con la respuesta, si es necesario
         } else {
           throw new Error("No se pudo agregar la propiedad");
         }
       } catch (error) {
         console.error("Error:", error);
-        alert("No se pudo agregar la propiedad");
+        swal.fire({
+          icon: 'error',
+          text: "No se pudo agregar la propiedad",
+        })
       }
-      console.log(form) }
+      console.log(form)}
       else{
-        alert("todo mal mi loco")
+        swal.fire({
+          icon: 'error',
+          text: "No se pudo agregar la propiedad",
+        }) 
       }
     };
 

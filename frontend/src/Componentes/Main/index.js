@@ -5,31 +5,6 @@ import swal from "sweetalert2";
 import '../Main/main.css';
 import Cookies from "universal-cookie";
 
-
-//const Cookie = new Cookies();
-/*async function getPropertiesBySearch(field, query){
-  return fetch( "http://localhost:8000/search=" + field + "_" + query, {
-    method: "GET",
-    header: "Content-Type: application/json"
-  }).then(response=>response.json())
-}
-
-async function getPropertiesBySearchAll(query){
-  return fetch("http://localhost:8000/searchAll=" + query, {
-    method: "GET",
-    header: "Content-Type: application/json"
-  }).then(response=>response.json())
-}
-
-async function getProperties(){
-  return await fetch("http://localhost:8000/search=*_*", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json"
-    }
-  }).then(response => response.json())
-}*/
-
 export const Main = () => {
 
 const Cookie = new Cookies();
@@ -43,67 +18,6 @@ const Cookie = new Cookies();
          id_user = "undefined"
     }
   const [properties, setProperties] = useState([]);
-  //const [failedSearch, setFailedSearch] = useState(false)
-  //const [querying, setQuerying] = useState(false)
-  //const [query, setQuery] = useState("")
-  
-  /*async function searchQueryAll(query){
-    if (query == "") {
-      query = "*"
-    }
-    await getPropertiesBySearchAll(query).then(response=>{
-      if (response != null) {
-        if (response.length > 0) {
-          setProperties(response)
-          //setFailedSearch(false)
-        } else {
-          setProperties([])
-          //setFailedSearch(true)
-        }
-      } else {
-        //setFailedSearch(false)
-        getProperties().then(response => setProperties(response))
-      }
-    })
-  }
-
-  async function searchQuery(field, query){
-    if(query === ""){
-      query = "*"
-    }
-    await getPropertiesBySearch(field, query).then(response=>{
-      if(response != null){
-        if(response.length > 0){
-          setProperties(response)
-         // setFailedSearch(false)
-        }else{
-          setProperties([])
-         // setFailedSearch(true)
-        }
-      }
-      else{
-        //setFailedSearch(false)
-        getProperties().then(response=>setProperties(response))
-      }
-    })
-  }
-
-  function searchAllDelete(e){
-    searchQueryAll(e.target.value);
-    //setQuerying(false);
-  }
-
-  function searchDelete(field, query){
-    searchQuery(field, query);
-   // setQuerying(false);
-  }
-  //ver lo de opciones para adaptarlo
-
-  if(query == "" && properties.length <= 0){
-    searchQuery("*","*")
-  }*/
-
-
     
   const [SearchCountries, setSearchContry] = useState([]);
   const [SearchCities, setSearchCity] = useState([]);

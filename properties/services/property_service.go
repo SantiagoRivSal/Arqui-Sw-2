@@ -148,7 +148,7 @@ func (s *propertyService) InsertProperty(propertyDto dtos.PropertyDto) (dtos.Pro
 	property.City = propertyDto.City
 	property.Country = propertyDto.Country
 	property.State = propertyDto.State
-	propertyDto.UserId = property.UserId
+	property.UserId = propertyDto.UserId
 	property.Street = propertyDto.Street
 	property.UserId = propertyDto.UserId
 
