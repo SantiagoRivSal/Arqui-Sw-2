@@ -73,7 +73,6 @@ func (sc *SolrClient) GetQuery(query string, field string) (dto.PropertiesDto, e
 func (sc *SolrClient) GetQueryAllFields(query string) (dto.PropertiesDto, e.ApiError) {
 	var response dto.SolrResponseDto
 	var propertiesDto dto.PropertiesDto
-	log.Debug("QUERY?!?!?!: ", query)
 	q, err := http.Get(
 		fmt.Sprintf("http://localhost:8983/solr/property/select?q=service%s%s%scountry%s%s%scity%s%s%s",
 			":", query, "%0A",
