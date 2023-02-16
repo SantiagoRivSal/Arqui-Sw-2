@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Libertador from "../../images/logo.jpeg";
 import {Link} from "react-router-dom";
 import swal from "sweetalert2";
-import '../Main/main.css';
 import Cookies from "universal-cookie";
+import './header.css';
 
 function LogOut(){
     //var resultado = window.confirm('Estas seguro?');
@@ -35,9 +34,9 @@ function LogOut(){
 export const Header = ()=>{
     
     return(
-        <header>
+        <header className="global">
         {id_user!="undefined"?
-        <ul>
+        <ul className="ul_header">
             <li>
                <Link to="/home" className="botones_menu">
                INICIO
@@ -45,7 +44,7 @@ export const Header = ()=>{
             </li>
             <li>
                <Link to="/properties" className="botones_menu">
-               CARGAR PRODUCTOS
+               PUBLICAR PROPIEDAD
                </Link> 
             </li>
             <li>

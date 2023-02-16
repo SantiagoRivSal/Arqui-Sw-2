@@ -30,8 +30,10 @@ export const InsertProperty = () => {
       });
     };
 
+
     const handleSubmit = async event => {
       event.preventDefault();
+      if(Number(form.size)>0 && Number(form.rooms)>0 && Number(form.bathrooms)>0 && Number(form.price) > 0 && form.service != "" && form.tittle != ""  && form.tittle != ""){
       const requestOptions = {
         method: "POST",
         headers: {
@@ -61,7 +63,10 @@ export const InsertProperty = () => {
         console.error("Error:", error);
         alert("No se pudo agregar la propiedad");
       }
-      console.log(form)
+      console.log(form) }
+      else{
+        alert("todo mal mi loco")
+      }
     };
 
     return <NewProperty 
