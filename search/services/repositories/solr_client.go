@@ -44,14 +44,14 @@ func (sc *SolrClient) AddClient(PropertyDto dto.PropertyDto) e.ApiError {
 	return nil
 }
 
-func (sc *SolrClient) GetQuery(query string, field string) (dto.PropertiesDto, e.ApiError) {
+func (sc *SolrClient) GetQuery(query string, field string) (dto.PropertiesArrayDto, e.ApiError) {
 	var response dto.SolrResponseDto
-	var propertiesDto dto.PropertiesDto
+	var propertiesArrayDto dto.PropertiesArrayDto
 
 	q, err := http.Get(fmt.Sprintf("http://localhost:8983/solr/property/select?q=%s%s%s", field, ":", query))
 
 	if err != nil {
-		return propertiesDto, e.NewBadRequestApiError("error getting from solr")
+		return propertiesArrayDto, e.NewBadRequestApiError("error getting from solr")
 	}
 
 	defer q.Body.Close()
@@ -60,40 +60,41 @@ func (sc *SolrClient) GetQuery(query string, field string) (dto.PropertiesDto, e
 
 	if err != nil {
 		log.Debug("error: ", err)
-		return propertiesDto, e.NewBadRequestApiError("error in unmarshal")
+		return propertiesArrayDto, e.NewBadRequestApiError("error in unmarshal")
 	}
 
 	for _, doc := range response.Response.Docs {
 		propertyDto := doc
-		propertiesDto = append(propertiesDto, propertyDto)
+		propertiesArrayDto = append(propertiesArrayDto, propertyDto)
 	}
 
-	return propertiesDto, nil
+	return propertiesArrayDto, nil
 }
-func (sc *SolrClient) GetQueryAllFields(query string) (dto.PropertiesDto, e.ApiError) {
+
+func (sc *SolrClient) GetQueryAllFields(query string) (dto.PropertiesArrayDto, e.ApiError) {
 	var response dto.SolrResponseDto
-	var propertiesDto dto.PropertiesDto
+	var propertiesArrayDto dto.PropertiesArrayDto
 	q, err := http.Get(
 		fmt.Sprintf("http://localhost:8983/solr/property/select?q=service%s%s%scountry%s%s%scity%s%s%s",
 			":", query, "%0A",
 			":", query, "%0A",
 			":", query, "%0A"))
 	if err != nil {
-		return propertiesDto, e.NewBadRequestApiError("error getting from solr")
+		return propertiesArrayDto, e.NewBadRequestApiError("error getting from solr")
 	}
 
 	var body []byte
 	body, err = io.ReadAll(q.Body)
 	if err != nil {
-		return propertiesDto, e.NewBadRequestApiError("error reading body")
+		return propertiesArrayDto, e.NewBadRequestApiError("error reading body")
 	}
 	err = json.Unmarshal(body, &response)
 	if err != nil {
-		return propertiesDto, e.NewBadRequestApiError("error in unmarshal")
+		return propertiesArrayDto, e.NewBadRequestApiError("error in unmarshal")
 	}
 
-	propertiesDto = response.Response.Docs
-	return propertiesDto, nil
+	propertiesArrayDto = response.Response.Docs
+	return propertiesArrayDto, nil
 }
 
 /*

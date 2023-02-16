@@ -61,23 +61,23 @@ func (s *SolrService) Add(id string) e.ApiError {
 	return nil
 }
 
-func (s *SolrService) GetQuery(query string) (dto.PropertiesDto, e.ApiError) {
-	var propertiesDto dto.PropertiesDto
+func (s *SolrService) GetQuery(query string) (dto.PropertiesArrayDto, e.ApiError) {
+	var propertiesArrayDto dto.PropertiesArrayDto
 	queryParams := strings.Split(query, "_")
 	field, query := queryParams[0], queryParams[1]
-	propertiesDto, err := s.solr.GetQuery(query, field)
+	propertiesArrayDto, err := s.solr.GetQuery(query, field)
 	if err != nil {
-		return propertiesDto, e.NewBadRequestApiError("Solr failed")
+		return propertiesArrayDto, e.NewBadRequestApiError("Solr failed")
 	}
-	return propertiesDto, nil
+	return propertiesArrayDto, nil
 }
-func (s *SolrService) GetQueryAllFields(query string) (dto.PropertiesDto, e.ApiError) {
-	var propertiesDto dto.PropertiesDto
-	propertiesDto, err := s.solr.GetQueryAllFields(query)
+func (s *SolrService) GetQueryAllFields(query string) (dto.PropertiesArrayDto, e.ApiError) {
+	var propertiesArrayDto dto.PropertiesArrayDto
+	propertiesArrayDto, err := s.solr.GetQueryAllFields(query)
 	if err != nil {
-		return propertiesDto, e.NewBadRequestApiError("Solr failed")
+		return propertiesArrayDto, e.NewBadRequestApiError("Solr failed")
 	}
-	return propertiesDto, nil
+	return propertiesArrayDto, nil
 }
 
 /*
