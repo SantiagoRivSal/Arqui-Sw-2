@@ -4,6 +4,8 @@ import Libertador from "../../images/logo.jpeg";
 import swal from "sweetalert2";
 import '../Main/main.css';
 import Cookies from "universal-cookie";
+
+
 //const Cookie = new Cookies();
 /*async function getPropertiesBySearch(field, query){
   return fetch( "http://localhost:8000/search=" + field + "_" + query, {
@@ -146,7 +148,7 @@ const Cookie = new Cookies();
         swal.fire({
           icon: 'error',
           text: "NO HAY PROPIEDADES CON LOS FILTROS SELECCIONADOS",
-        })
+        }) 
         .then((result) => {
           if (result.isConfirmed) {
               window.location.reload();

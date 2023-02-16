@@ -44,7 +44,7 @@ export const Header = ()=>{
                </Link> 
             </li>
             <li>
-               <Link to="/insert" className="botones_menu">
+               <Link to="/properties" className="botones_menu">
                CARGAR PRODUCTOS
                </Link> 
             </li>
