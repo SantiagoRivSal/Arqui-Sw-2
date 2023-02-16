@@ -71,6 +71,14 @@ func (s *SolrService) GetQuery(query string) (dto.PropertiesDto, e.ApiError) {
 	}
 	return propertiesDto, nil
 }
+func (s *SolrService) GetQueryAllFields(query string) (dto.PropertiesDto, e.ApiError) {
+	var propertiesDto dto.PropertiesDto
+	propertiesDto, err := s.solr.GetQueryAllFields(query)
+	if err != nil {
+		return propertiesDto, e.NewBadRequestApiError("Solr failed")
+	}
+	return propertiesDto, nil
+}
 
 /*
 func (s *SolrService) Delete(id string) e.ApiError {

@@ -5,6 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"net/http"
 
 	"search/dto"
@@ -67,6 +68,32 @@ func (sc *SolrClient) GetQuery(query string, field string) (dto.PropertiesDto, e
 		propertiesDto = append(propertiesDto, propertyDto)
 	}
 
+	return propertiesDto, nil
+}
+func (sc *SolrClient) GetQueryAllFields(query string) (dto.PropertiesDto, e.ApiError) {
+	var response dto.SolrResponseDto
+	var propertiesDto dto.PropertiesDto
+	log.Debug("QUERY?!?!?!: ", query)
+	q, err := http.Get(
+		fmt.Sprintf("http://localhost:8983/solr/property/select?q=service%s%s%scountry%s%s%scity%s%s%s",
+			":", query, "%0A",
+			":", query, "%0A",
+			":", query, "%0A"))
+	if err != nil {
+		return propertiesDto, e.NewBadRequestApiError("error getting from solr")
+	}
+
+	var body []byte
+	body, err = io.ReadAll(q.Body)
+	if err != nil {
+		return propertiesDto, e.NewBadRequestApiError("error reading body")
+	}
+	err = json.Unmarshal(body, &response)
+	if err != nil {
+		return propertiesDto, e.NewBadRequestApiError("error in unmarshal")
+	}
+
+	propertiesDto = response.Response.Docs
 	return propertiesDto, nil
 }
 
