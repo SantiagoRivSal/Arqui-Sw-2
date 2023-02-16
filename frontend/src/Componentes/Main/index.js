@@ -1,11 +1,10 @@
 import { PropertyItems } from "../Main/PropertyItems";
 import React, { useEffect, useState } from "react";
 import Libertador from "../../images/logo.jpeg";
-import {Link} from "react-router-dom";
 import swal from "sweetalert2";
 import '../Main/main.css';
 import Cookies from "universal-cookie";
-const Cookie = new Cookies();
+//const Cookie = new Cookies();
 /*async function getPropertiesBySearch(field, query){
   return fetch( "http://localhost:8000/search=" + field + "_" + query, {
     method: "GET",
@@ -28,21 +27,6 @@ async function getProperties(){
     }
   }).then(response => response.json())
 }*/
-function LogOut(){
-  //var resultado = window.confirm('Estas seguro?');
-  swal.fire({
-      text: "Estas seguro?",
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Yes'
-    }).then((result) => {
-      if (result.isConfirmed) {
-          Cookie.set("user", "undefined,undefined", { path: "/" });
-          window.location.replace("/");
-      }})
-}
 
 export const Main = () => {
 
@@ -184,16 +168,13 @@ const Cookie = new Cookies();
   };
   return (
     <header class="header">
-      <div class="logo-div">
+      <div>
+        <div class="logo-div">
         <img class="logo" src={Libertador} />
-      {id_user!="undefined"?
-                <button className="btn" onClick={()=>LogOut()}>
-                Log Out
-            </button>:
-               <Link to="/" className="botones_menu">
-                </Link> 
-             }
-    
+        </div>
+        <div>
+          
+        </div>
       </div>
       <div class="buscar">
         BUSCA TU HOGAR IDEAL
