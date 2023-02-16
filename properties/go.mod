@@ -3,12 +3,13 @@ module properties
 go 1.18
 
 require (
-	github.com/bradfitz/gomemcache v0.0.0-20221031212613-62deef7fc822
+	github.com/bradfitz/gomemcache v0.0.0-20230124162541-5f7a7d875746
+	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.8.2
 	github.com/json-iterator/go v1.1.12
-	github.com/rabbitmq/amqp091-go v1.6.0
+	github.com/rabbitmq/amqp091-go v1.7.0
 	github.com/sirupsen/logrus v1.9.0
-	go.mongodb.org/mongo-driver v1.11.1
+	go.mongodb.org/mongo-driver v1.11.2
 )
 
 require (
