@@ -26,7 +26,7 @@ export const InsertProperty = () => {
       const { name, value } = event.target;
       setForm({
         ...form,
-        [name]: value,
+        [name]: name === "userid"||name === "size" || name === "rooms" || name === "bathrooms" || name === "price" ? Number(value) : value,
       });
     };
 
@@ -34,8 +34,19 @@ export const InsertProperty = () => {
       event.preventDefault();
       const requestOptions = {
         method: "POST",
-        headers: { 'Content-type': 'application/json'},
-        body: JSON.stringify(form),
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({
+          ...form,
+          size: Number(form.size), // Convertir a número
+          rooms: Number(form.rooms), // Convertir a número
+          bathrooms: Number(form.bathrooms), // Convertir a número
+          price: Number(form.price), // Convertir a número
+          userid:Number(form.userid)
+        }),
       };
       try {
         const response = await fetch('http://localhost:8090/properties/load', requestOptions);
@@ -50,30 +61,8 @@ export const InsertProperty = () => {
         console.error("Error:", error);
         alert("No se pudo agregar la propiedad");
       }
+      console.log(form)
     };
-
-    /*const handleSubmit = async event => {
-      event.preventDefault();
-      const requestOptions = {
-        method: "POST",
-        headers: { 'Content-type': 'application/json'},
-        mode: 'cors',
-        body: JSON.stringify(form),
-      };
-      await fetch('http://localhost:8090/properties/load', requestOptions)
-        .then((response) => {
-          if (response.status !== 201) {
-            alert("No se pudo agregar la propiedad");
-          } else {
-            alert("Propiedad agregada con éxito");
-            response.json()
-          }
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-          alert("No se pudo agregar la propiedad");
-        });
-    };*/
 
     return <NewProperty 
     form={form}
