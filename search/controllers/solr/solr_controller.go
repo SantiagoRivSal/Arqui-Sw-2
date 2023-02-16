@@ -19,31 +19,31 @@ var (
 )
 
 func GetQuery(c *gin.Context) {
-	var propertiesDto dto.PropertiesDto
+	var propertiesArrayDto dto.PropertiesArrayDto
 	query := c.Param("solrQuery")
 
-	propertiesDto, err := Solr.GetQuery(query)
+	propertiesArrayDto, err := Solr.GetQuery(query)
 	if err != nil {
-		log.Debug(propertiesDto)
-		c.JSON(http.StatusBadRequest, propertiesDto)
+		log.Debug(propertiesArrayDto)
+		c.JSON(http.StatusBadRequest, propertiesArrayDto)
 		return
 	}
 
-	c.JSON(http.StatusOK, propertiesDto)
+	c.JSON(http.StatusOK, propertiesArrayDto)
 
 }
 func GetQueryAllFields(c *gin.Context) {
-	var itemsDto dto.PropertiesDto
+	var propertiesArrayDto dto.PropertiesArrayDto
 	query := c.Param("solrQuery")
 
-	itemsDto, err := Solr.GetQueryAllFields(query)
+	propertiesArrayDto, err := Solr.GetQueryAllFields(query)
 	if err != nil {
-		log.Debug(itemsDto)
-		c.JSON(http.StatusBadRequest, itemsDto)
+		log.Debug(propertiesArrayDto)
+		c.JSON(http.StatusBadRequest, propertiesArrayDto)
 		return
 	}
 
-	c.JSON(http.StatusOK, itemsDto)
+	c.JSON(http.StatusOK, propertiesArrayDto)
 
 }
 func Add(c *gin.Context) {
