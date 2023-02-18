@@ -84,13 +84,3 @@ func (s *SolrService) GetQueryAllFields(query string) (dto.PropertiesArrayDto, e
 	}
 	return propertiesArrayDto, nil
 }
-
-/*
-func (s *SolrService) Delete(id string) e.ApiError {
-	err := s.solr.Delete(id)
-	if err != nil {
-		return err
-	}
-	return nil
-}
-*/

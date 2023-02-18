@@ -101,27 +101,3 @@ func (sc *SolrClient) GetQueryAllFields(query []string) (dto.PropertiesArrayDto,
 	}
 	return propertiesArrayDto, nil
 }
-
-/*
-func (sc *SolrClient) Delete(id string) e.ApiError {
-	var deleteDto dto.DeleteDto
-	deleteDto.Delete = dto.DeleteDoc{Query: fmt.Sprintf("id:%s", id)}
-	data, err := json.Marshal(deleteDto)
-	reader := bytes.NewReader(data)
-	if err != nil {
-		return e.NewBadRequestApiError("Error getting json")
-	}
-	resp, err := sc.Client.Update(context.TODO(), sc.Collection, solr.JSON, reader)
-	logger.Debug(resp)
-	if err != nil {
-		return e.NewBadRequestApiError("Error in solr")
-	}
-
-	er := sc.Client.Commit(context.TODO(), sc.Collection)
-	if er != nil {
-		logger.Debug("Error committing load")
-		return e.NewInternalServerApiError("Error committing to solr", er)
-	}
-	return nil
-}
-*/
