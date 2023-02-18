@@ -1,8 +1,8 @@
 package dto
 
 type ResponseDto struct {
-	NumFound int           `json:"numFound"`
-	Docs     []PropertyDto `json:"docs"`
+	NumFound int                `json:"numFound"`
+	Docs     []PropertyArrayDto `json:"docs"`
 }
 
 type SolrResponseDto struct {

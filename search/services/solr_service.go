@@ -73,7 +73,12 @@ func (s *SolrService) GetQuery(query string) (dto.PropertiesArrayDto, e.ApiError
 }
 func (s *SolrService) GetQueryAllFields(query string) (dto.PropertiesArrayDto, e.ApiError) {
 	var propertiesArrayDto dto.PropertiesArrayDto
-	propertiesArrayDto, err := s.solr.GetQueryAllFields(query)
+	queryParams := strings.Split(query, "_")
+	var q []string
+	for i := 0; i < len(queryParams); i++ {
+		q = append(q, queryParams[i])
+	}
+	propertiesArrayDto, err := s.solr.GetQueryAllFields(q)
 	if err != nil {
 		return propertiesArrayDto, e.NewBadRequestApiError("Solr failed")
 	}

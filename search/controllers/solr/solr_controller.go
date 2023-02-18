@@ -46,6 +46,7 @@ func GetQueryAllFields(c *gin.Context) {
 	c.JSON(http.StatusOK, propertiesArrayDto)
 
 }
+
 func Add(c *gin.Context) {
 	id := c.Param("id")
 	err := Solr.Add(id)

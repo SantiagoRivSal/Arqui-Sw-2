@@ -64,36 +64,41 @@ func (sc *SolrClient) GetQuery(query string, field string) (dto.PropertiesArrayD
 	}
 
 	for _, doc := range response.Response.Docs {
-		propertyDto := doc
-		propertiesArrayDto = append(propertiesArrayDto, propertyDto)
+		propertyArrayDto := doc
+		propertiesArrayDto = append(propertiesArrayDto, propertyArrayDto)
 	}
 
 	return propertiesArrayDto, nil
 }
 
-func (sc *SolrClient) GetQueryAllFields(query string) (dto.PropertiesArrayDto, e.ApiError) {
+func (sc *SolrClient) GetQueryAllFields(query []string) (dto.PropertiesArrayDto, e.ApiError) {
 	var response dto.SolrResponseDto
 	var propertiesArrayDto dto.PropertiesArrayDto
-	q, err := http.Get(
-		fmt.Sprintf("http://localhost:8983/solr/property/select?q=service%s%s%scountry%s%s%scity%s%s%s",
-			":", query, "%0A",
-			":", query, "%0A",
-			":", query, "%0A"))
+
+	q, err := http.Get("http://localhost:8983/solr/property/select?q=service" + ":" + query[0] + "%0A" + "country" + ":" + query[1] + "%0A" + "city" + ":" + query[2])
+
 	if err != nil {
+		log.Debug("error: ", err)
 		return propertiesArrayDto, e.NewBadRequestApiError("error getting from solr")
+
 	}
 
 	var body []byte
 	body, err = io.ReadAll(q.Body)
 	if err != nil {
+		log.Debug("error: ", err)
 		return propertiesArrayDto, e.NewBadRequestApiError("error reading body")
 	}
 	err = json.Unmarshal(body, &response)
 	if err != nil {
+		log.Debug("error: ", err)
 		return propertiesArrayDto, e.NewBadRequestApiError("error in unmarshal")
 	}
 
-	propertiesArrayDto = response.Response.Docs
+	for _, doc := range response.Response.Docs {
+		propertyArrayDto := doc
+		propertiesArrayDto = append(propertiesArrayDto, propertyArrayDto)
+	}
 	return propertiesArrayDto, nil
 }
 

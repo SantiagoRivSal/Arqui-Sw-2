@@ -35,4 +35,4 @@ type PropertyDto struct {
 }
 
 type PropertiesDto []PropertyDto
-type PropertiesArrayDto []PropertyDto
+type PropertiesArrayDto []PropertyArrayDto
