@@ -7,11 +7,12 @@ import (
 )
 
 func mapUrls() {
+	// Messages Mapping
+	router.GET("/messages/:id", messageController.GetMessageById)
+	router.GET("/users/:id/messages", messageController.GetMessagesByUserId)
+	router.GET("/messages", messageController.GetMessages)
 
-	// messages Mapping
-	router.GET("/message/:receiver", messageController.GetMessageByReceiver)
-	router.GET("/message", messageController.GetMessages)
-	router.POST("/message", messageController.InserMessage)
+	router.POST("/message", messageController.MessageInsert)
 
 	log.Info("Finishing mappings configurations")
 }

@@ -2,8 +2,9 @@ package errors
 
 import (
 	"fmt"
-	json "github.com/json-iterator/go"
 	"net/http"
+
+	json "github.com/json-iterator/go"
 )
 
 type CauseList []interface{}

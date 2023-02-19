@@ -1,15 +1,15 @@
 package model
 
 import (
-	"time"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type Message struct {
-	Id       int       `gorm:"primaryKey"`
-	Receiver int       `gorm:"type:int(150);not null"`
-	Sender   int       `gorm:"type:int(150);not null"`
-	Message  string    `gorm:"type:varchar(500);not null"`
-	Date     time.Time `gorm:"not null"`
+	Id         primitive.ObjectID `bson:"_id"`
+	UserId     int                `bson:"userid"`
+	PropertyId string             `bson:"propertyid"`
+	Body       string             `bson:"body"`
+	CreatedAt  string             `bson:"createdat"`
 }
 
 type Messages []Message
