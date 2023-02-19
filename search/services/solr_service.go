@@ -61,7 +61,7 @@ func (s *SolrService) Add(id string) e.ApiError {
 	return nil
 }
 
-func (s *SolrService) GetQuery(query string) (dto.PropertiesArrayDto, e.ApiError) {
+/*func (s *SolrService) GetQuery(query string) (dto.PropertiesArrayDto, e.ApiError) {
 	var propertiesArrayDto dto.PropertiesArrayDto
 	queryParams := strings.Split(query, "_")
 	field, query := queryParams[0], queryParams[1]
@@ -70,13 +70,45 @@ func (s *SolrService) GetQuery(query string) (dto.PropertiesArrayDto, e.ApiError
 		return propertiesArrayDto, e.NewBadRequestApiError("Solr failed")
 	}
 	return propertiesArrayDto, nil
+}*/
+
+func (s *SolrService) GetQuery(query string) (dto.PropertiesArrayDto, e.ApiError) {
+	var propertiesArrayDto dto.PropertiesArrayDto
+	queryParams := strings.Split(query, "_")
+	field, query := queryParams[0], queryParams[1]
+
+	// Replace spaces with %20 in the query string
+	query = strings.Replace(query, " ", "%20", -1)
+
+	propertiesArrayDto, err := s.solr.GetQuery(query, field)
+	if err != nil {
+		return propertiesArrayDto, e.NewBadRequestApiError("Solr failed")
+	}
+
+	return propertiesArrayDto, nil
 }
-func (s *SolrService) GetQueryAllFields(query string) (dto.PropertiesArrayDto, e.ApiError) {
+
+/*func (s *SolrService) GetQueryAllFields(query string) (dto.PropertiesArrayDto, e.ApiError) {
 	var propertiesArrayDto dto.PropertiesArrayDto
 	queryParams := strings.Split(query, "_")
 	var q []string
 	for i := 0; i < len(queryParams); i++ {
 		q = append(q, queryParams[i])
+	}
+	propertiesArrayDto, err := s.solr.GetQueryAllFields(q)
+	if err != nil {
+		return propertiesArrayDto, e.NewBadRequestApiError("Solr failed")
+	}
+	return propertiesArrayDto, nil
+}*/
+
+func (s *SolrService) GetQueryAllFields(query string) (dto.PropertiesArrayDto, e.ApiError) {
+	var propertiesArrayDto dto.PropertiesArrayDto
+	queryParams := strings.Split(query, "_")
+	var q []string
+	for i := 0; i < len(queryParams); i++ {
+		// Reemplazar los espacios por una cadena vacía en cada parámetro
+		q = append(q, strings.ReplaceAll(queryParams[i], " ", "%20"))
 	}
 	propertiesArrayDto, err := s.solr.GetQueryAllFields(q)
 	if err != nil {

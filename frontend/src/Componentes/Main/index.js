@@ -75,6 +75,7 @@ const Cookie = new Cookies();
       .then((response) => response.json());
     setSearchContry(response);
   };
+  
   useEffect(() => {
     fetchApi1();
   }, [])
@@ -84,9 +85,10 @@ const Cookie = new Cookies();
       .then((response) => response.json());
     setSearchCity(response);
   };
+  
   useEffect(() => {
     fetchApi2();
-  }, [])
+  }, []);
 
   const fetchApi3 = async () => {
     const response = await fetch('http://localhost:8090/properties/service')
@@ -98,7 +100,7 @@ const Cookie = new Cookies();
   }, [])
 
   const fetchApiProperty = async () => {
-    const search = await fetch("http://localhost:8000/searchAll/*" +  valueService+ "_" + valueCountry + "_*" + valueCity+"*")
+    const search = await fetch("http://localhost:8000/searchAll/" +  valueService+ "_" + valueCountry + "_" + valueCity)
       .then((res) => res.json())
       if(search===null){
         swal.fire({
