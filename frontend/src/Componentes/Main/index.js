@@ -27,7 +27,49 @@ const Cookie = new Cookies();
   const [valueCountry, setValueCountry] = useState("");
   const [valueService, setValueService] = useState("");
   
-  
+    const [busqueda, setBusqueda]= useState("");
+    const fetchBuscador = async()=>{
+      
+        const response = await fetch('http://localhost:8000/search/tittle_*'+ busqueda+"*")
+        /*.then((response) => response.json());
+        if (response.status == 400) {
+          swal.fire({
+            icon: 'error',
+            text: "No se encontro el producto",
+          }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.reload();
+            }})
+       }else{
+        setProperties(response)
+        console.log(response);
+       }*/
+       .then((response) => response.json())
+       if(response===null){
+         swal.fire({
+           icon: 'error',
+           text: "NO HAY PROPIEDADES EN SU BUSQUEDA",
+         }) 
+         .then((result) => {
+           if (result.isConfirmed) {
+               window.location.reload();
+           }})
+     }else{
+     setProperties(response)
+     console.log(response); 
+       }
+        };
+
+    const handleChange2=e=>{
+     setBusqueda(e.target.value);
+      };
+
+      const handleSubmit2= (event)=>{
+        event.preventDefault();
+        fetchBuscador();
+    };
+
+
   const fetchApi1 = async () => {
     const response = await fetch('http://localhost:8090/properties/country')
       .then((response) => response.json());
@@ -56,9 +98,9 @@ const Cookie = new Cookies();
   }, [])
 
   const fetchApiProperty = async () => {
-    const search = await fetch("http://localhost:8983/solr/property/select?defType=lucene&fq=city%3A%22" + valueCity + "%22&fq=country%3A%22" + valueCountry + "%22&fq=service%3A%22" + valueService + "%22&indent=true&q.op=OR&q=*%3A*")
+    const search = await fetch("http://localhost:8000/searchAll/*" +  valueService+ "_" + valueCountry + "_*" + valueCity+"*")
       .then((res) => res.json())
-      if(search.response.numFound==0){
+      if(search===null){
         swal.fire({
           icon: 'error',
           text: "NO HAY PROPIEDADES CON LOS FILTROS SELECCIONADOS",
@@ -68,8 +110,8 @@ const Cookie = new Cookies();
               window.location.reload();
           }})
     }else{
-    setProperties(search.response.docs)
-    console.log(search.response.docs); 
+    setProperties(search)
+    console.log(search); 
       }
   };
   const handleChange = e => {
@@ -96,19 +138,23 @@ const Cookie = new Cookies();
         BUSCA TU HOGAR IDEAL
       </div>
 
-      <div className="containerInput" >
-        <input
-          class="form-control inputBuscar"
-          //value={busqueda}
-          placeholder="Buscador de Productos"
-          //onChange={handleChange}
-         
-        />
-        <input class="search-button"
-        value = "Buscar"
-         type = "button"
-        //onClick = {handleSubmit}
-        />
+      <div class="search-padre">
+        <div>
+          <div>
+          <input
+            class="form-control inputBuscar"
+            value={busqueda}
+            placeholder="Buscador de Productos"
+            onChange={handleChange2}
+          
+          />
+          </div>
+          <div>
+            <button class="btn-search" type="button" onClick={handleSubmit2}>
+                Buscar
+              </button>
+          </div>
+        </div>
       </div>
 
       <div class="search-padre">
@@ -180,7 +226,7 @@ const Cookie = new Cookies();
                   />
             ))
         }
-        {properties.length == 0 || (properties.length > 0 && properties.every((property) => id_user == property.userid)) ? (
+        {(properties.length > 0 && properties.every((property) => id_user == property.userid)) ? (
       <p>Solo hay propiedades a tu nombre</p>
     ) : null}
         </div>
