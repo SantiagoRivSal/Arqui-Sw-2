@@ -6,7 +6,6 @@ require (
 	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.8.2
 	github.com/json-iterator/go v1.1.12
-	github.com/sirupsen/logrus v1.9.0
 	go.mongodb.org/mongo-driver v1.11.2
 )
 

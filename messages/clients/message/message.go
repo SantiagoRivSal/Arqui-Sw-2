@@ -3,7 +3,6 @@ package message
 import (
 	"context"
 	"fmt"
-	"log"
 	model "messages/model"
 	"messages/utils/db"
 	e "messages/utils/errors"
@@ -48,14 +47,8 @@ func InsertMessage(message model.Message) model.Message {
 func GetMessageByPropertyId(id string) model.Messages {
 	var messages model.Messages
 	db := db.MongoDb
-	objID, err := primitive.ObjectIDFromHex(id)
 
-	if err != nil {
-		fmt.Println(err)
-		return messages
-	}
-
-	cursor, err := db.Collection("messages").Find(context.TODO(), bson.D{{"propertyid", objID}})
+	cursor, err := db.Collection("messages").Find(context.TODO(), bson.D{{"propertyid", id}})
 	if err != nil {
 		fmt.Println(err)
 		return messages
@@ -66,13 +59,14 @@ func GetMessageByPropertyId(id string) model.Messages {
 		var message model.Message
 		err := cursor.Decode(&message)
 		if err != nil {
-			log.Fatal(err)
+			fmt.Println(err)
 		}
 		messages = append(messages, message)
 	}
 	if err := cursor.Err(); err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
+
 	return messages
 }
 

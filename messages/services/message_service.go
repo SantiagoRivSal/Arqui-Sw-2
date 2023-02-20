@@ -59,7 +59,7 @@ func (s *messageService) GetMessageByPropertyId(id string) (dto.MessagesDto, e.A
 		messageDto.PropertyId = message.PropertyId
 		messageDto.UserId = message.UserId
 		messageDto.Body = message.Body
-		messageDto.CreatedAt = time.Now().Format("2006/01/02 15:04:05")
+		messageDto.CreatedAt = message.CreatedAt
 		messageDto.Id = message.Id.Hex()
 		messagesArrayDto = append(messagesArrayDto, messageDto)
 	}
