@@ -39,6 +39,7 @@ func InsertMessage(message model.Message) model.Message {
 		fmt.Println(err)
 		return message
 	}
+
 	fmt.Println("id insertada: ", insertMessage.Id)
 	message.Id = insertMessage.Id
 	return message
