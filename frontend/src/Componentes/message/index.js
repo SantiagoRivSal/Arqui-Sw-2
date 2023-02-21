@@ -13,6 +13,7 @@ export const InsertMessage = () => {
     const cookies = new Cookies();
     const propertyId = cookies.get("propertyId");
     const id_user = cookies.get("user").split(",")[0];
+    
     const [form, setForm] = useState({
         'userid': id_user,
         'propertyid': propertyId,
@@ -85,7 +86,7 @@ export const InsertMessage = () => {
         const response = await fetch('http://localhost:8070/properties/'+ propertyId +'/messages')
           .then((response) => response.json());
           setMessages(response)
-          console.log(response); 
+          console.log(response);
       };
       useEffect(() => {
         fetchApiMessages();
