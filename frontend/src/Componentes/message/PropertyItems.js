@@ -1,6 +1,4 @@
 import React from "react";
-import Cookies  from "universal-cookie";
-import {Link} from "react-router-dom";
 
 export const PropertyItems = (
     { id,
@@ -19,16 +17,8 @@ export const PropertyItems = (
         iduser
     }) => {
 
- const cookies = new Cookies();
-
-  // Función que se ejecutará cuando el usuario haga clic en la propiedad
-  const handleClick = () => {
-    // Guardar el ID de la propiedad en una cookie con nombre "propertyId"
-    cookies.set("propertyId", id, { path: "/" });
-  };
-
   return (
-    <div class="Property" onClick={handleClick}>
+    <div class="Property">
       <div>
         <div class="Property_img">
           <img class="image" src={image} alt="" />
@@ -45,11 +35,6 @@ export const PropertyItems = (
         <p class="Datos-2">Direccion: {street},{city},{state}</p>
         <p class="Datos-2">{country}</p>
         <p class="Datos-2">Usuario: {iduser}</p>
-        <lu class="message-btn">
-               <Link to="/message" class="message" onClick={handleClick}> 
-                MENSAJES
-                </Link> 
-        </lu>
       </div>
     </div>
   );

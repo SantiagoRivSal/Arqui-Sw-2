@@ -345,6 +345,81 @@ h2{
   text-align: center;
 }
 
+/*******************************Mensajes************************************/
+.Message-padre{
+  margin: 10rem auto 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.Message{
+  background-color: rgb(255, 255, 255);
+  width: 550px;
+  border-radius: 5px;
+  margin: 0 40px 80px 40px;
+}
+
+.Message_img{
+  margin: 20px auto;
+  width: 510px;
+  height: 360px;
+}
+
+.Message_img img{
+  object-fit: cover;
+  width:100%;
+  height:100%;
+}
+
+.Message_footer{
+  padding: 0.5rem;
+}
+
+.Message_footer{
+margin-bottom: 30px;
+}
+
+.Message_footer .price{
+  font-size: 2rem;
+  color: rgb(0, 0, 0);
+  margin-left: 65px;
+}
+.Datos{
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  margin: 10px 0;
+  font-size: 20px;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.55);
+  text-transform: uppercase;
+}
+
+.Datos-2{
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  margin: 2px 0;
+  font-size: 17px;
+  color: black;
+  font-weight: 700;
+  color: rgba(0, 0, 0, 0.55);
+  text-transform: uppercase;
+}
+
+h1{
+  color: rgb(0, 0, 0);
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 30px;
+}
+
+h2{
+  font-size: 25px;
+  padding: 1rem 0 1rem 0;
+  color: rgb(79, 78, 78);
+  text-align: center;
+}
 
 /**************************************************************************************************/
 

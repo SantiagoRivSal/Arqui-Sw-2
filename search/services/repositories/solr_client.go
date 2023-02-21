@@ -48,7 +48,7 @@ func (sc *SolrClient) GetQuery(query string, field string) (dto.PropertiesArrayD
 	var response dto.SolrResponseDto
 	var propertiesArrayDto dto.PropertiesArrayDto
 
-	q, err := http.Get(fmt.Sprintf("http://localhost:8983/solr/property/select?q=%s%s%s", field, ":", query))
+	q, err := http.Get(fmt.Sprintf("http://localhost:8983/solr/property/select?q=%s%s%s&rows=100000", field, ":", query))
 
 	if err != nil {
 		return propertiesArrayDto, e.NewBadRequestApiError("error getting from solr")
@@ -76,7 +76,7 @@ func (sc *SolrClient) GetQueryAllFields(query []string) (dto.PropertiesArrayDto,
 	var propertiesArrayDto dto.PropertiesArrayDto
 
 	//q, err := http.Get("http://localhost:8983/solr/property/select?q=service" + ":" + query[0] + "%0A" + "country" + ":" + query[1] + "%0A" + "city" + ":" + query[2])
-	q, err := http.Get("http://localhost:8983/solr/property/select?q=service" + ":" + query[0] + "%20AND%20" + "country" + ":" + query[1] + "%20AND%20" + "city" + ":" + query[2])
+	q, err := http.Get("http://localhost:8983/solr/property/select?q=service" + ":" + query[0] + "%20AND%20" + "country" + ":" + query[1] + "%20AND%20" + "city" + ":" + query[2] + "&rows=100000")
 	if err != nil {
 		log.Debug("error: ", err)
 		return propertiesArrayDto, e.NewBadRequestApiError("error getting from solr")

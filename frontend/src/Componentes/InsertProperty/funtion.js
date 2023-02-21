@@ -57,10 +57,10 @@ export const InsertProperty = () => {
           swal.fire({
             icon: 'success',
             text: "Propiedad Agregada",
-        })
-        setTimeout(() => {
-          window.location.reload();
-        }, 5000);
+        }).then((result) => {
+          if (result.isConfirmed) {
+              window.location.reload();
+          }});
           // Aquí podrías hacer algo con la respuesta, si es necesario
         } else {
           throw new Error("No se pudo agregar la propiedad");

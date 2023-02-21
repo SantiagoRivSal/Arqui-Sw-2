@@ -1,0 +1,15 @@
+version: '3'
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+  consumer_search:
+    build: ./consumer_search
+  users:
+    build: ./users
+    depends_on:
+    ports:
+      - "9000:9000"
+    
