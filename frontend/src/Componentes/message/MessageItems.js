@@ -1,18 +1,19 @@
 import React, { useContext, useEffect, useState} from "react";
 import Cookies from "universal-cookie";
 import swal from "sweetalert2";
-const cookies = new Cookies();
-const id_user = cookies.get("user").split(",")[0];
+
 export const MessageItems = (
     { id,
         userid,
+        usermame,
         propertyid,
         body,
         created_at
     }) => {
 const [messages, setMessages] = useState([]);
-const [users, setUsers] = useState([]);
-
+const [users, setUsers] = useState('');
+const cookies = new Cookies();
+const id_user = cookies.get("user").split(",")[0];
 const fetchApiUser = async () => {
   const response = await fetch('http://localhost:9000/user/'+ userid)
     .then((response) => response.json());
@@ -59,7 +60,7 @@ const handleDelete = async (id) => {
   return (
     <div class="Message">
       <div class="Message_footer">
-        <p class="date">{userid} - {created_at}</p>
+        <p class="date">{usermame} - {created_at}</p>
         <p class="body">{body}</p>
         {id_user == userid?
             <button type="submit" onClick={() => handleDelete(id)}>Eliminar</button>
