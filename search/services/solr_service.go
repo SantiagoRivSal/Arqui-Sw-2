@@ -74,13 +74,8 @@ func (s *SolrService) Add(id string) e.ApiError {
 
 func (s *SolrService) GetQuery(query string) (dto.PropertiesArrayDto, e.ApiError) {
 	var propertiesArrayDto dto.PropertiesArrayDto
-	queryParams := strings.Split(query, "_")
-	field, query := queryParams[0], queryParams[1]
 
-	// Replace spaces with %20 in the query string
-	query = strings.Replace(query, " ", "%20", -1)
-
-	propertiesArrayDto, err := s.solr.GetQuery(query, field)
+	propertiesArrayDto, err := s.solr.GetQuery(query)
 	if err != nil {
 		return propertiesArrayDto, e.NewBadRequestApiError("Solr failed")
 	}

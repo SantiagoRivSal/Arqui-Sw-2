@@ -28,7 +28,7 @@ export const PropertyItems = (
   };
 
   return (
-    <div class="Property" onClick={handleClick}>
+    <Link to="/message" class="Property" onClick={handleClick}>
       <div>
         <div class="Property_img">
           <img class="image" src={image} alt="" />
@@ -44,14 +44,8 @@ export const PropertyItems = (
         <p class="Datos">{service}</p>
         <p class="Datos-2">Direccion: {street},{city},{state}</p>
         <p class="Datos-2">{country}</p>
-        <p class="Datos-2">Usuario: {iduser}</p>
-        <lu class="message-btn">
-               <Link to="/message" class="message" onClick={handleClick}> 
-                MENSAJES
-                </Link> 
-        </lu>
       </div>
-    </div>
+    </Link>
   );
 
 }

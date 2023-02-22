@@ -46,13 +46,6 @@ return(
        PUBLICAR PROPIEDAD
        </Link> 
     </li>
-    {propertyId!=null ?
-        <li>
-       <Link to="/message" className="botones_menu"> 
-        MENSAJES
-        </Link> 
-    </li> :null    
-}
     <button className="btn" onClick={()=>LogOut()}>
         SALIR
     </button>
