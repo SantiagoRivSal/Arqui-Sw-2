@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -48,7 +47,7 @@ func (sc *SolrClient) GetQuery(query string) (dto.PropertiesArrayDto, e.ApiError
 	var response dto.SolrResponseDto
 	var propertiesArrayDto dto.PropertiesArrayDto
 
-	q, err := http.Get(fmt.Sprintf("http://localhost:8983/solr/property/select?q=", query, "&df=text"))
+	q, err := http.Get("http://localhost:8983/solr/property/select?q=" + query + "&df=text")
 
 	if err != nil {
 		return propertiesArrayDto, e.NewBadRequestApiError("error getting from solr")
