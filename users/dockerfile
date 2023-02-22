@@ -1,4 +1,4 @@
-FROM golang:1.17
+FROM golang:1.18
 
 ADD . /users
 
@@ -8,4 +8,4 @@ RUN go mod tidy
 RUN go build -o users .
 RUN chmod +x /users
 
-ENTRYPOINT ["/users"]
+ENTRYPOINT ["/users/users"]

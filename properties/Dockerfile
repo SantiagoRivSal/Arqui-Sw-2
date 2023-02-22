@@ -1,4 +1,4 @@
-FROM golang:1.17
+FROM golang:1.18
 
 ADD . /properties
 
@@ -8,4 +8,4 @@ RUN go mod tidy
 RUN go build -o properties .
 RUN chmod +x /properties
 
-ENTRYPOINT ["/properties"]
+ENTRYPOINT ["/properties/properties"]

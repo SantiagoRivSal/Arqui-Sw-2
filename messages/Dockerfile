@@ -1,4 +1,4 @@
-FROM golang:1.17
+FROM golang:1.18
 
 ADD . /messages
 
@@ -8,4 +8,4 @@ RUN go mod tidy
 RUN go build -o messages .
 RUN chmod +x /messages
 
-ENTRYPOINT ["/messages"]
+ENTRYPOINT ["/messages/messages"]
