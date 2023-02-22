@@ -1,11 +1,11 @@
 FROM golang:1.17
 
-ADD . /backend
+ADD . /properties
 
-WORKDIR /backend
+WORKDIR /properties
 RUN go mod init properties
 RUN go mod tidy
 RUN go build -o properties .
-RUN chmod +x /backend
+RUN chmod +x /properties
 
-ENTRYPOINT ["/backend/properties"]
+ENTRYPOINT ["/properties"]
