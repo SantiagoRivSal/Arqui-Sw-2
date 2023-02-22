@@ -9,6 +9,7 @@ import (
 
 	"search/dto"
 	e "search/utils/errors"
+	"strings"
 
 	log "github.com/sirupsen/logrus"
 	logger "github.com/sirupsen/logrus"
@@ -46,6 +47,7 @@ func (sc *SolrClient) AddClient(PropertyDto dto.PropertyDto) e.ApiError {
 func (sc *SolrClient) GetQuery(query string) (dto.PropertiesArrayDto, e.ApiError) {
 	var response dto.SolrResponseDto
 	var propertiesArrayDto dto.PropertiesArrayDto
+	query = strings.Replace(query, " ", "%20", -1)
 
 	q, err := http.Get("http://localhost:8983/solr/property/select?q=" + query + "&df=text")
 
