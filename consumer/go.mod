@@ -4,7 +4,7 @@ go 1.19
 
 require (
 	github.com/json-iterator/go v1.1.12
-	github.com/rabbitmq/amqp091-go v1.6.0
+	github.com/rabbitmq/amqp091-go v1.7.0
 	github.com/sirupsen/logrus v1.9.0
 )
 
