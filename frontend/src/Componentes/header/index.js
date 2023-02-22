@@ -23,6 +23,7 @@ function LogOut(){
   const Cookie = new Cookies();
   let cookie = Cookie.get("user")
   let id_user;
+  const propertyId = Cookie.get("propertyId");
   if(cookie!=undefined){
   let array = cookie.split(",")
    id_user = array[0]
@@ -45,11 +46,13 @@ return(
        PUBLICAR PROPIEDAD
        </Link> 
     </li>
-    <li>
+    {propertyId!=null ?
+        <li>
        <Link to="/message" className="botones_menu"> 
         MENSAJES
         </Link> 
-    </li>
+    </li> :null    
+}
     <button className="btn" onClick={()=>LogOut()}>
         SALIR
     </button>

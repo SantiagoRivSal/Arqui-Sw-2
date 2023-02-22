@@ -60,7 +60,7 @@ const handleDelete = async (id) => {
   return (
     <div class="Message">
       <div class="Message_footer">
-        <p class="date">{usermame} - {created_at}</p>
+        <p class="date">{userid} - {created_at}</p>
         <p class="body">{body}</p>
         {id_user == userid?
             <button type="submit" onClick={() => handleDelete(id)}>Eliminar</button>
