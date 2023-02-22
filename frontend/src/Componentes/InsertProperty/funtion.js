@@ -34,7 +34,7 @@ export const InsertProperty = () => {
     const handleSubmit = async event => {
       event.preventDefault();
       if(Number(form.size)>0 && Number(form.rooms)>0 && Number(form.bathrooms)>0 && Number(form.price) > 0 && form.service != "" && form.tittle != ""  && form.tittle != ""){
-      const requestOptions = {
+        const requestOptions = {
         method: "POST",
         headers: {
           'Content-Type': 'application/json',
@@ -59,7 +59,7 @@ export const InsertProperty = () => {
             text: "Propiedad Agregada",
         }).then((result) => {
           if (result.isConfirmed) {
-              window.location.reload();
+            window.location.href = "http://localhost:3000/home"
           }});
           // Aquí podrías hacer algo con la respuesta, si es necesario
         } else {

@@ -1,9 +1,20 @@
 import React from 'react'
 import './insert.css'
 
+function imagen(id) {
+    var x = document.getElementById("imagen").value;
+    if(x == ""){
+    document.getElementById("div-imagen-form").style.display = "none";
+    }
+    else{
+        document.getElementById("div-imagen-form").style.display = "block";
+        document.getElementById(id).src = x;
+    }
+ 
+}
 
 const Form = ({ onChange, onSubmit, form }) => (
-    <div className="container">
+    <div className="container" id="container">
         <h1 className='publicar'>
             Publicar propiedad
         </h1>
@@ -38,13 +49,17 @@ const Form = ({ onChange, onSubmit, form }) => (
                     name="image"
                     id="imagen"
                     onChange={onChange}
+                    onBlur={() => imagen("imagen-2")}
                     value={form.image}
                 />
             </div>
-            <img class="imagen" src='' />
+            <div className='div-imagen-form' id="div-imagen-form">
+            <img className="imagen" id="imagen-2" src='' />
+            </div>
+            
             <div className="form-group">
                 <input
-                    type="number"
+                    type="text"
                     min="1"
                     className="form-control, inputpb"
                     placeholder="Size"
@@ -55,8 +70,7 @@ const Form = ({ onChange, onSubmit, form }) => (
             </div>
             <div className="form-group">
                 <input
-                    type="number"
-                    min="1"
+                    type="text"
                     className="form-control, inputpb"
                     placeholder="Rooms"
                     name="rooms"
@@ -66,7 +80,7 @@ const Form = ({ onChange, onSubmit, form }) => (
             </div>
             <div className="form-group">
                 <input
-                    type="number"
+                    type="text"
                     min="1"
                     className="form-control, inputpb"
                     placeholder="Bathrooms"
@@ -89,7 +103,7 @@ const Form = ({ onChange, onSubmit, form }) => (
             </div>
             <div className="form-group">
                 <input
-                    type="number"
+                    type="text"
                     min="1"
                     className="form-control, inputpb"
                     placeholder="Price"

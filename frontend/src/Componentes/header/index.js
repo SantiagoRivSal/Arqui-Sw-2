@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
-import {Link} from "react-router-dom";
+import React from "react";
 import swal from "sweetalert2";
-import Cookies from "universal-cookie";
 import './header.css';
+import {Link} from "react-router-dom";
+import Cookies from "universal-cookie";
 
 function LogOut(){
     //var resultado = window.confirm('Estas seguro?');
@@ -19,8 +19,7 @@ function LogOut(){
             window.location.replace("/");
         }})
   }
-
-  
+    
   const Cookie = new Cookies();
   let cookie = Cookie.get("user")
   let id_user;
@@ -31,35 +30,33 @@ function LogOut(){
   else{
        id_user = "undefined"
   }
-export const Header = ()=>{
-    
-    return(
-        <header className="global">
-        {id_user!="undefined"?
-        <ul className="ul_header">
-            <li>
-               <Link to="/home" className="botones_menu">
-               INICIO
-               </Link> 
-            </li>
-            <li>
-               <Link to="/properties" className="botones_menu">
-               PUBLICAR PROPIEDAD
-               </Link> 
-            </li>
-            <li>
-               <Link to="/message" className="botones_menu"> 
-                MENSAJES
-                </Link> 
-            </li>
-            <button className="btn" onClick={()=>LogOut()}>
-                SALIR
-            </button>
-        </ul>
-            :
-               <Link to="/" className="botones_menu">
-                </Link> 
-             }
-        </header>
-    )
-}
+export const Header = () => {
+return(
+<header className="global" id="header-global">
+{id_user!="undefined"?
+<ul className="ul_header">
+    <li>
+       <Link to="/home" className="botones_menu">
+       INICIO
+       </Link> 
+    </li>
+    <li>
+       <Link to="/properties" className="botones_menu">
+       PUBLICAR PROPIEDAD
+       </Link> 
+    </li>
+    <li>
+       <Link to="/message" className="botones_menu"> 
+        MENSAJES
+        </Link> 
+    </li>
+    <button className="btn" onClick={()=>LogOut()}>
+        SALIR
+    </button>
+</ul>
+    :
+       <Link to="/" className="botones_menu">
+        </Link> 
+     }
+</header>
+)}

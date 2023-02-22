@@ -4,10 +4,16 @@ import "./login.css";
 import Cookies from "universal-cookie";
 import Logo from "../../images/logo.jpeg";
 import {CookieUser} from "../cookies/cookiesUser"
+import Libertador from "../../images/logo.jpeg";
 import swal from "sweetalert2";
 const Cookie = new Cookies();
 
+
 export default function Login(){
+
+  window.onload = function(){
+    document.getElementById("header-global").style.display = "none"
+  }
   
   const[user,setUser]= useState("");
   const[password,setPassword] = useState("");
@@ -66,6 +72,9 @@ export default function Login(){
       <div className="login-form">
       <form onSubmit={handleSubmit} >
       <div className="ul">
+      <div class="logo-div-2">
+        <img class="logo-2" src={Libertador} />
+        </div>
       
       <h1 className="login">LOGIN</h1>
       

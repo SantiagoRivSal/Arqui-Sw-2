@@ -1,9 +1,11 @@
 import { PropertyItems } from "../Main/PropertyItems";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Libertador from "../../images/logo.jpeg";
 import swal from "sweetalert2";
 import '../Main/main.css';
 import Cookies from "universal-cookie";
+
+
 
 export const Main = () => {
 
@@ -68,7 +70,7 @@ const Cookie = new Cookies();
           <input
             class="form-control inputBuscar"
             value={busqueda}
-            placeholder="Buscador de Productos"
+            placeholder="Buscar propiedades"
             onChange={handleChange}
           
           />

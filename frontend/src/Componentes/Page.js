@@ -1,6 +1,7 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Main } from "./Main/index";
+
 import { InsertProperty} from "./InsertProperty/funtion";
 import { InsertMessage } from "./message/index";
 import Login from "./Login/login";
