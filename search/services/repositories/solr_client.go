@@ -44,11 +44,11 @@ func (sc *SolrClient) AddClient(PropertyDto dto.PropertyDto) e.ApiError {
 	return nil
 }
 
-func (sc *SolrClient) GetQuery(query string, field string) (dto.PropertiesArrayDto, e.ApiError) {
+func (sc *SolrClient) GetQuery(query string) (dto.PropertiesArrayDto, e.ApiError) {
 	var response dto.SolrResponseDto
 	var propertiesArrayDto dto.PropertiesArrayDto
 
-	q, err := http.Get(fmt.Sprintf("http://localhost:8983/solr/property/select?q=%s%s%s&rows=100000", field, ":", query))
+	q, err := http.Get(fmt.Sprintf("http://localhost:8983/solr/property/select?q=text:", query))
 
 	if err != nil {
 		return propertiesArrayDto, e.NewBadRequestApiError("error getting from solr")
