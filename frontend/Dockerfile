@@ -1,13 +1,20 @@
 FROM node:16
 
+ADD . /app
+WORKDIR /app
+COPY package.json .
+COPY package-lock.json .
+
+RUN npm install
+
+COPY . .
+#COPY ./ ./
+
+RUN npm run build 
+
 EXPOSE 3000
 
-ADD . /frontend
-WORKDIR /frontend
+CMD ["npm", "start"]
 
-COPY package.json ./
-COPY package-lock.json ./
-COPY ./ ./
-RUN npm i
-CMD ["npm", "run", "start"]
+#CMD ["npm", "run", "start"]
 

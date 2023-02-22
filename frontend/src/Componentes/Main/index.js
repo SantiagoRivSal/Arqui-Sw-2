@@ -24,7 +24,7 @@ const Cookie = new Cookies();
     const [busqueda, setBusqueda]= useState("");
     const fetchBuscador = async()=>{
       
-        const response = await fetch('http://localhost:8000/search/tittle_*'+ busqueda+"*")
+        const response = await fetch('http://localhost:8000/search/'+ busqueda)
        .then((response) => response.json())
        if(response===null){
          swal.fire({
@@ -85,7 +85,6 @@ const Cookie = new Cookies();
         
       <div class="Property-padre">
             {properties
-        .filter((property) => id_user != property.userid)
         .map((property) => (
                   <PropertyItems key={property.id}
                     id={property.id}
@@ -105,9 +104,6 @@ const Cookie = new Cookies();
                   />
             ))
         }
-        {(properties.length > 0 && properties.every((property) => id_user == property.userid)) ? (
-      <p>Solo hay propiedades a tu nombre</p>
-    ) : null}
         </div>
     </header>
   )
