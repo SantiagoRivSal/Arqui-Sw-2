@@ -1,11 +1,11 @@
 FROM golang:1.18
 
-ADD . /search
+ADD . /consumer
 
-WORKDIR /search
+WORKDIR /consumer
 RUN go mod init consumer
 RUN go mod tidy
 RUN go build -o consumer .
-RUN chmod +x /search
+RUN chmod +x /consumer
 
-ENTRYPOINT ["/search/consumer"]
+ENTRYPOINT ["/consumer/consumer"]
