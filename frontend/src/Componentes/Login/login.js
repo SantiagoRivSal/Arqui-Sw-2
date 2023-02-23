@@ -2,8 +2,6 @@
 import React,{ useState} from "react";
 import "./login.css";
 import Cookies from "universal-cookie";
-import Logo from "../../images/logo.jpeg";
-import {CookieUser} from "../cookies/cookiesUser"
 import Libertador from "../../images/logo.jpeg";
 import swal from "sweetalert2";
 const Cookie = new Cookies();
