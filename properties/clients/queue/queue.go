@@ -18,7 +18,7 @@ func failOnError(err error, msg string) {
 }
 
 func SendMessage(itemId string, action string, message string) e.ApiError {
-	conn, err := amqp.Dial("amqp://user:password@localhost:5672/")
+	conn, err := amqp.Dial("amqp://user:password@rabbit:5672/")
 	failOnError(err, "Failed to connect to RabbitMQ")
 
 	defer conn.Close()

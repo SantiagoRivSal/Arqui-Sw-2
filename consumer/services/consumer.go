@@ -28,7 +28,7 @@ func (s *ConsumerService) TopicConsumer(topic string) {
 		var err error
 		strs := strings.Split(id, ".")
 		if len(strs) < 2 {
-			resp, err = http.Get(fmt.Sprintf("http://localhost:8000/properties/" + id))
+			resp, err = http.Get(fmt.Sprintf("http://host.docker.internal:8000/properties/" + id))
 		}
 		log.Debug("Propertie sent " + id)
 		if err != nil {

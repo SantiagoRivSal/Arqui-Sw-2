@@ -42,7 +42,7 @@ export const InsertMessage = () => {
               }),
             };
             try {
-              const response = await fetch('http://localhost:8070/message', requestOptions);
+              const response = await fetch('http://host.docker.internal:8070/message', requestOptions);
               if (response.ok) {
                 const data = await response.json();
                 swal.fire({
@@ -73,7 +73,7 @@ export const InsertMessage = () => {
       }; 
 
       const fetchApiProperty = async () => {
-        const response = await fetch('http://localhost:8000/search/id_'+ propertyId)
+        const response = await fetch('http://host.docker.internal:8000/search/id_'+ propertyId)
           .then((response) => response.json());
           setProperties(response)
           console.log(response); 
@@ -83,7 +83,7 @@ export const InsertMessage = () => {
       }, []);
 
       const fetchApiMessages = async () => {
-        const response = await fetch('http://localhost:8070/properties/'+ propertyId +'/messages')
+        const response = await fetch('http://host.docker.internal:8070/properties/'+ propertyId +'/messages')
           .then((response) => response.json());
           setMessages(response)
           console.log(response);

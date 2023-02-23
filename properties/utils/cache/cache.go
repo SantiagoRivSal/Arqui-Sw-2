@@ -7,7 +7,7 @@ import (
 var cache *memcache.Client
 
 func Init_cache() {
-	cache = memcache.New("localhost:11211")
+	cache = memcache.New("memcached:11211")
 }
 
 func Set(key string, value []byte) {

@@ -14,7 +14,7 @@ import (
 
 var (
 	Solr = services.NewSolrServiceImpl(
-		(*client.SolrClient)(con.NewSolrClient("localhost", 8983, "property")),
+		(*client.SolrClient)(con.NewSolrClient("solr", 8983, "property")),
 	)
 )
 
@@ -23,20 +23,6 @@ func GetQuery(c *gin.Context) {
 	query := c.Param("solrQuery")
 
 	propertiesArrayDto, err := Solr.GetQuery(query)
-	if err != nil {
-		log.Debug(propertiesArrayDto)
-		c.JSON(http.StatusBadRequest, propertiesArrayDto)
-		return
-	}
-
-	c.JSON(http.StatusOK, propertiesArrayDto)
-
-}
-func GetQueryAllFields(c *gin.Context) {
-	var propertiesArrayDto dto.PropertiesArrayDto
-	query := c.Param("solrQuery")
-
-	propertiesArrayDto, err := Solr.GetQueryAllFields(query)
 	if err != nil {
 		log.Debug(propertiesArrayDto)
 		c.JSON(http.StatusBadRequest, propertiesArrayDto)

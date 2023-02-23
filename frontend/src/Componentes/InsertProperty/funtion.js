@@ -51,7 +51,7 @@ export const InsertProperty = () => {
         }),
       };
       try {
-        const response = await fetch('http://localhost:8090/properties/load', requestOptions);
+        const response = await fetch('http://host.docker.internal:8090/properties/load', requestOptions);
         if (response.ok) {
           const data = await response.json();
           swal.fire({
@@ -59,7 +59,7 @@ export const InsertProperty = () => {
             text: "Propiedad Agregada",
         }).then((result) => {
           if (result.isConfirmed) {
-            window.location.href = "http://localhost:3000/home"
+            window.location.href = "http://host.docker.internal:3000/home"
           }});
           // Aquí podrías hacer algo con la respuesta, si es necesario
         } else {

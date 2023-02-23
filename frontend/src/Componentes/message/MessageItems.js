@@ -15,7 +15,7 @@ const [users, setUsers] = useState('');
 const cookies = new Cookies();
 const id_user = cookies.get("user").split(",")[0];
 const fetchApiUser = async () => {
-  const response = await fetch('http://localhost:9000/user/'+ userid)
+  const response = await fetch('http://host.docker.internal:9000/user/'+ userid)
     .then((response) => response.json());
     setUsers(response)
     console.log(response); 
@@ -26,7 +26,7 @@ useEffect(() => {
 
 const handleDelete = async (id) => {
     try {
-      const response = await fetch(`http://localhost:8070/messages/`+ id, {
+      const response = await fetch(`http://host.docker.internal:8070/messages/`+ id, {
         method: "DELETE",
       });
   

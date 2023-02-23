@@ -14,6 +14,30 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root"]
       timeout: 20s
       retries: 10
+<<<<<<< HEAD
+=======
+  mongo_db:
+      image: mongo
+      restart: always
+      environment:
+        MONGO_INITDB_ROOT_USERNAME: root
+        MONGO_INITDB_ROOT_PASSWORD: root
+        MONGO_DATA_DIR: /data/db
+        MONGO_INITDB_DATABASE: Properties
+      ports:
+        - "27017:27017"      
+  solr:
+    container_name: solr
+    image: solr
+    ports:
+      - "8983:8983"
+    volumes:
+      - ./docker/solr/managed-schema:/opt/solr/server/solr/configsets/_default/conf/managed-schema
+    entrypoint:
+      - docker-entrypoint.sh
+      - solr-precreate
+      - property
+>>>>>>> 075f76dbcdc5d926cb1c47d640487344d811b21c
   rabbit:
       container_name: rabbit
       image: rabbitmq:3-management
@@ -32,6 +56,7 @@ services:
         interval: 1s
         timeout: 20s
         retries: 30
+<<<<<<< HEAD
   solr:
     container_name: solr
     image: solr
@@ -43,11 +68,14 @@ services:
       - docker-entrypoint.sh
       - solr-precreate
       - property
+=======
+>>>>>>> 075f76dbcdc5d926cb1c47d640487344d811b21c
   memcached:
     container_name: cache
     image: memcached
     ports:
       - "11211:11211"
+<<<<<<< HEAD
   mongodb:
     image: mongo
     restart: always
@@ -58,17 +86,21 @@ services:
       MONGO_INITDB_DATABASE: Properties
     ports:
       - "27017:27017"          
+=======
+
+>>>>>>> 075f76dbcdc5d926cb1c47d640487344d811b21c
   back:
     build: ./properties
     depends_on:
-      mongodb: 
+      mongo_db: 
         condition: service_started
     ports:
       - "8090:8090"
+
   messages:
     build: ./messages
     depends_on:
-      mongodb: 
+      mongo_db: 
         condition: service_started
     ports: 
       - "8070:8070"
@@ -90,3 +122,13 @@ services:
         condition: service_healthy
     ports:
       - "9000:9000"
+<<<<<<< HEAD
+=======
+
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - "3000:3000"
+  
+>>>>>>> 075f76dbcdc5d926cb1c47d640487344d811b21c
