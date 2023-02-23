@@ -4,7 +4,6 @@ import (
 	"bytes"
 	"context"
 	"encoding/json"
-	"io"
 	"net/http"
 
 	"search/dto"
@@ -49,7 +48,7 @@ func (sc *SolrClient) GetQuery(query string) (dto.PropertiesArrayDto, e.ApiError
 	var propertiesArrayDto dto.PropertiesArrayDto
 	query = strings.Replace(query, " ", "%20", -1)
 
-	q, err := http.Get("http://localhost:8983/solr/property/select?q=" + query + "&df=text")
+	q, err := http.Get("http://host.docker.internal:8983/solr/property/select?q=" + query + "&df=text")
 
 	if err != nil {
 		return propertiesArrayDto, e.NewBadRequestApiError("error getting from solr")
@@ -69,36 +68,5 @@ func (sc *SolrClient) GetQuery(query string) (dto.PropertiesArrayDto, e.ApiError
 		propertiesArrayDto = append(propertiesArrayDto, propertyArrayDto)
 	}
 
-	return propertiesArrayDto, nil
-}
-
-func (sc *SolrClient) GetQueryAllFields(query []string) (dto.PropertiesArrayDto, e.ApiError) {
-	var response dto.SolrResponseDto
-	var propertiesArrayDto dto.PropertiesArrayDto
-
-	//q, err := http.Get("http://localhost:8983/solr/property/select?q=service" + ":" + query[0] + "%0A" + "country" + ":" + query[1] + "%0A" + "city" + ":" + query[2])
-	q, err := http.Get("http://localhost:8983/solr/property/select?q=service" + ":" + query[0] + "%20AND%20" + "country" + ":" + query[1] + "%20AND%20" + "city" + ":" + query[2] + "&rows=100000")
-	if err != nil {
-		log.Debug("error: ", err)
-		return propertiesArrayDto, e.NewBadRequestApiError("error getting from solr")
-
-	}
-
-	var body []byte
-	body, err = io.ReadAll(q.Body)
-	if err != nil {
-		log.Debug("error: ", err)
-		return propertiesArrayDto, e.NewBadRequestApiError("error reading body")
-	}
-	err = json.Unmarshal(body, &response)
-	if err != nil {
-		log.Debug("error: ", err)
-		return propertiesArrayDto, e.NewBadRequestApiError("error in unmarshal")
-	}
-
-	for _, doc := range response.Response.Docs {
-		propertyArrayDto := doc
-		propertiesArrayDto = append(propertiesArrayDto, propertyArrayDto)
-	}
 	return propertiesArrayDto, nil
 }

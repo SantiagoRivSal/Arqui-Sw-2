@@ -92,3 +92,10 @@ services:
         condition: service_healthy
     ports:
       - "9000:9000"
+
+  frontend:
+    container_name: frontend
+    build: ./frontend
+    ports:
+      - "3000:3000"
+  
