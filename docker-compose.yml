@@ -23,6 +23,9 @@ services:
       - "8090:8090"
   messages:
     build: ./messages
+    depends_on:
+      mongodb: 
+        condition: service_started
     ports: 
       - "8070:8070"
   consumer:
@@ -30,6 +33,8 @@ services:
     depends_on:
       rabbit:
         condition: service_healthy
+      search:
+        condition: service_started
   search:
     build: ./search
     ports:
