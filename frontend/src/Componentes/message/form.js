@@ -3,17 +3,17 @@ import '../InsertProperty/insert.css'
 
 
 const Message = ({ onChange, onSubmit, form }) => (
-    <div className="container">
-        <h1 className='publicar'>
+    <div className="mensaje_container">
+        <h1 className='publicar_mensaje'>
             Enviar Mensaje
         </h1>
-        <form className='form-publicar'
+        <form className='form_publicar_mensaje'
             onSubmit={onSubmit}
         >
-            <div className="form-group">
+            <div className="form_group_mensaje">
                 <input
                     type="text"
-                    className="form-control, inputp"
+                    className="form-control, input_mensaje"
                     placeholder="Escriba un Mensaje para el Dueño de la Propiedad"
                     name="body"
                     onChange={onChange}
@@ -23,7 +23,7 @@ const Message = ({ onChange, onSubmit, form }) => (
             <div>
                 <button
                     type="submit"
-                    className="btn-summit"
+                    className="btn_summit_mensaje"
                 >
                     Enviar
                 </button>

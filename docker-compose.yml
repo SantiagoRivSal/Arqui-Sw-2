@@ -5,7 +5,7 @@ services:
     build: ./db/users
     environment:
       MYSQL_DATABASE: usersdb
-      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:

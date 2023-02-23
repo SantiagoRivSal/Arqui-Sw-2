@@ -10,7 +10,7 @@
     
     .ul_header{
         display: flex;
-        width: 400px;
+        width: 450px;
         justify-content: space-between;
         margin-right: 50px;
         align-items: center;
@@ -33,6 +33,7 @@
         border: 2px solid black;
         outline: none;
     }
+    
     
     
     /*////////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/

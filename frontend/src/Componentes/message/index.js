@@ -73,7 +73,7 @@ export const InsertMessage = () => {
       }; 
 
       const fetchApiProperty = async () => {
-        const response = await fetch('http://host.docker.internal:8000/search/id_'+ propertyId)
+        const response = await fetch('http://host.docker.internal:8000/search/'+ propertyId)
           .then((response) => response.json());
           setProperties(response)
           console.log(response); 
@@ -94,7 +94,7 @@ export const InsertMessage = () => {
     
     return (
         <div>
-<div class="Property-padre">
+<div class="Property-dad">
             {properties.map((property) => (
                   <PropertyItems key={property.id}
                     id={property.id}
@@ -123,7 +123,7 @@ export const InsertMessage = () => {
     body={message.body}
     created_at={message.created_at}
   />
-)) : <p>Nadie ha realizado consultas</p>}
+)) : <p class="consulta">Nadie ha realizado consultas</p>}
  
     <NewMessage
         form={form}

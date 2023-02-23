@@ -77,7 +77,7 @@ export default function Login(){
       <h1 className="login">LOGIN</h1>
       
         <div>
-      <input id="user" type={"text"} placeholder="user" onChange={onChangeUser} value ={user} required></input>
+      <input id="user" className="user" type={"text"} placeholder="user" onChange={onChangeUser} value ={user} required></input>
         </div>
       <div>
       <input id="password" type={"password"} placeholder="password" onChange={onChangePas} value={password} required></input>

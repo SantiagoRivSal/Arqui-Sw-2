@@ -24,7 +24,7 @@ const Cookie = new Cookies();
     const [busqueda, setBusqueda]= useState("");
     const fetchBuscador = async()=>{
       
-        const response = await fetch('http://host.docker.internal:8000/search/'+ busqueda)
+        const response = await fetch('http://host.docker.internal:8000/search/*'+ busqueda+"*")
        .then((response) => response.json())
        if(response===null){
          swal.fire({
