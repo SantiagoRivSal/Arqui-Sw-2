@@ -18,7 +18,7 @@ func init() {
 	// DB Connections Paramters
 	DBName := "usersdb"
 	DBUser := "root"
-	DBPass := ""
+	DBPass := "root"
 
 	DBHost := "usersdb"
 	// ------------------------

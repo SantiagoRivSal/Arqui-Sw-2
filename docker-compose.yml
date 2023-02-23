@@ -5,7 +5,7 @@ services:
     build: ./db/users
     environment:
       MYSQL_DATABASE: usersdb
-      MYSQL_ALLOW_EMPTY_PASSWORD: true
+      MYSQL_ROOT_PASSWORD: root
     ports:
       - "3306:3306"
     volumes:
@@ -14,10 +14,6 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root"]
       timeout: 20s
       retries: 10
-  front:
-    build: ./frontend
-    ports:
-      - "3000:3000"
   back:
     build: ./properties
     depends_on:
