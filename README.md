@@ -45,12 +45,5 @@ docker run -d -p --name some-solr 8983:8983 solr solr-precreate property
 ### GET Property
 Se usa el ID
 localhost:8090/properties/63dbaaf59261396ac24f9c7f
-```bash
- {
-     "id": "63dbaaf59261396ac24f9c7f",
-     "tittle": "CASA BONITA",
-     ....
- }
 
-```
  
